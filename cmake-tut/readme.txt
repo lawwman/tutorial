@@ -8,3 +8,7 @@ How to CMake Good
 
 useful links:
 https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html
+
+
+How to use:
+After CMake configure and generate, run 'mingw32-make' to build the project.
