@@ -1,4 +1,3 @@
-#pragma once
 #include <vector>
 
 class Perceptron
@@ -7,6 +6,7 @@ class Perceptron
 		// Variables
 		int input_size;
 		std::vector<int> weights;
+		std::vector<int>::iterator it;
 		
 		// Functions
 		Perceptron(int size);

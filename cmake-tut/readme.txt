@@ -1,6 +1,7 @@
 resources (in the order you should read):
 https://preshing.com/20170511/how-to-build-a-cmake-based-project/
 https://preshing.com/20170522/learn-cmakes-scripting-language-in-15-minutes/
+How to CMake Good # Its a youtube series that is...not bad?
 
 https://cmake.org/cmake-tutorial/   # not very beginner friendly. Many missing steps not explicitly stated.
 https://medium.com/@onur.dundar1/cmake-tutorial-585dd180109b

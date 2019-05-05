@@ -3,7 +3,9 @@
 Perceptron::Perceptron(int size) {
 	input_size = size;
 	for(int i = 0; i < size; i++){
-		weights[i] = 1;
+		// Iterators get invalidated after insert(). Need to get iterator again at beginning of loop
+		it = weights.begin(); 
+		weights.insert(it + i, i);
 	}
 }
 

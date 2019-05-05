@@ -8,10 +8,9 @@ int main()
 {
     cout << "Hello, World!" << endl;
 	Perceptron perceptron(2);
-	cout << "Hello, World!" << endl;
 	for (int j = 0; j < 2; j++) {
-		cout << "test" << endl;
-		//cout << perceptron.weights[i] << endl;
+		cout << perceptron.weights[j] << endl;
 	}
+	
     return 0;
 }
