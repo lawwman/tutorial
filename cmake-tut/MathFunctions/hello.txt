@@ -1,0 +1,2 @@
+set(THING "funk")
+message("We want the ${THING}!")
