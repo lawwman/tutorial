@@ -7,9 +7,11 @@ https://medium.com/@onur.dundar1/cmake-tutorial-585dd180109b
 
 
 Youtube vids:
-C++ Tutorial for Beginners - https://www.youtube.com/watch?v=vLnPwxZdW4Y
-C++ Header Files           - https://www.youtube.com/watch?v=9RJTQmK0YPI
-How to CMake Good          - https://www.youtube.com/watch?v=_yFPO1ofyF0
+C++ Tutorial for Beginners  - https://www.youtube.com/watch?v=vLnPwxZdW4Y
+C++ Header Files            - https://www.youtube.com/watch?v=9RJTQmK0YPI
+Writing Classes in Separate
+Files using #define in C++  - https://www.youtube.com/watch?v=pywM36qKHvg
+How to CMake Good           - https://www.youtube.com/watch?v=_yFPO1ofyF0
 
 
 How to cmake build and generate through command line:
