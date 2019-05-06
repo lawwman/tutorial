@@ -2,5 +2,5 @@
 #include <iostream>
 
 void print() {
-	std::cout << "print" << std::endl;
+	std::cout << "print from util" << std::endl;
 }
