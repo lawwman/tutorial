@@ -11,4 +11,4 @@ add_library(
 
 add_executable(NN hello_world.cpp)
 
-target_link_libraries(NN PRIVATE perceptron)
+target_link_libraries(NN PRIVATE perceptron)  # links the library 'perceptron' to executable 'NN'

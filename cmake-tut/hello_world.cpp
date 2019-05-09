@@ -10,5 +10,11 @@ int main()
 	for (int j = 0; j < 2; j++) {
 		cout << perceptron.weights[j] << endl;
 	}
+	
+	float input[] = {1, 2};
+	
+	int guess = perceptron.guess(input);
+	
+	cout << "Guess: " << guess << endl;
     return 0;
 }
