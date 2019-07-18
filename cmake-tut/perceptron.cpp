@@ -4,13 +4,16 @@
 
 int activation(float sum);
 
-Perceptron::Perceptron(int size) {
+// Constructor
+Perceptron::Perceptron(int size, float lr) {
 	// To set random numbers
 	srand(time(NULL));
 	int max = 2, min = 0;
 	int randNum = 0;
 	
 	input_size = size;
+	learning_rate = lr;
+	
 	for(int i = 0; i < size; i++) { 
 		// Iterators get invalidated after insert(). Need to get iterator again at beginning of loop
 		it = weights.begin(); 
@@ -29,6 +32,20 @@ float Perceptron::guess(float inputs[]) {
 	}
 	
 	return activation(sum);
+}
+
+void Perceptron::train(float inputs[], int target) {
+	int guess_ = guess(inputs);
+	int error = target - guess;
+	
+	for (int i = 0; i < input_size; i++) {
+		
+		it = weights.begin(); 
+		
+		float new_weight = error * inputs[i] * learning_rate;
+		
+		weights.insert(it + i, new_weight);
+	}
 }
 
 int activation(float sum) {
