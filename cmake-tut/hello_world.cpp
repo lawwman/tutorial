@@ -6,7 +6,7 @@ using namespace std;
 int main() 
 {
     cout << "Hello, World!" << endl;
-	Perceptron perceptron(2);
+	Perceptron perceptron(2, 0.5);
 	for (int j = 0; j < 2; j++) {
 		cout << perceptron.weights[j] << endl;
 	}

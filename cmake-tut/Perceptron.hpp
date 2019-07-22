@@ -13,6 +13,6 @@ class Perceptron
 		// Functions
 		Perceptron(int size, float lr);
 		float guess(float inputs[]);
-		void train(float inputs[]);
+		void train(float inputs[], int target);
 };
 
