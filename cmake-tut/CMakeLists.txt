@@ -4,11 +4,11 @@ project (NN)  # sets name of project and store in variable PROJECT_NAME
 # adds a library to the project. However, it is not linked to executable yet.
 # Use target_link_libraries to link it to the main project executable
 add_library(
-	perceptron
-	Perceptron.hpp
-	Perceptron.cpp
+	Math
+	Math.hpp
+	Math.cpp
 	)
 
 add_executable(NN hello_world.cpp)
 
-target_link_libraries(NN PRIVATE perceptron)  # links the library 'perceptron' to executable 'NN'
+target_link_libraries(NN PRIVATE Math)  # links the library 'perceptron' to executable 'NN'

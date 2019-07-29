@@ -3,6 +3,8 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <math.h>
+#include "Math.hpp"
 
 using namespace std;
 
@@ -108,8 +110,10 @@ int setup() {
 		curr++;
 		next++;
 	}
-	
-	
+	return 1;
+}
+
+float feedforward() {
 	return 1;
 }
 
@@ -117,6 +121,8 @@ int main() {
 	
 	int check = setup();
 	if (check == 0) return 0; // There is an error, end the program.
+	
+	cout << sigmoid(5) << endl;
 	
 	
 

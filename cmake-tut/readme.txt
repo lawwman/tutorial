@@ -27,10 +27,10 @@ Make sure you are in the source dir and then run the following code:
 The executable will be built.
 
 How to compile and run C++ with mingw:  # http://www.mingw.org/wiki/mingw_for_first_time_users_howto
-> g++ hello_world.cpp -o helloworld.exe   
+> g++ NN.cpp -o NN.exe   
 
 If compiling with multiples files (note that you should have a util.hpp for helloworld.cpp to find util.cpp functions)
-> g++ hello_world.cpp Perceptron.cpp -o hw.exe   
+> g++ NN.cpp Math.cpp -o NN.exe   
 
 
 useful links:
