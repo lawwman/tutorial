@@ -11,18 +11,65 @@ float sigmoid(float x) {
 
 vector<float> sigmoid_of_vector(vector<float> x) {
 	vector<float> sigmoid_vector(x.size());
- 
-	cout << "//////////SHOWING SIGMOID VALUES//////////" << endl;
 	
 	for (int i = 0; i < x.size(); i++) {
 		sigmoid_vector[i] = sigmoid(x[i]);
-		cout << sigmoid_vector[i] << endl;
 	}
  
 	return sigmoid_vector;
 }
 
-vector<float> dot_product(vector<vector<float>> weights, vector<float> input) {
+vector<float> sigmoid_prime_of_vector(vector<float> x) {
+	
+	vector<float> one_minus_sigmoid(x.size());
+	vector<float> sigmoid_ = sigmoid_of_vector(x);
+	
+	for (int i = 0; i < x.size(); i++) {
+		one_minus_sigmoid[i] = 1 - sigmoid_[i];
+	}
+	
+	return matrix_multiplication(one_minus_sigmoid, sigmoid_);
+}
+
+vector<float> matrix_addition(vector<float> a, vector<float> b) {
+	
+	vector<float> vector_sum(a.size());
+	
+	cout << "//////////SHOWING NEW VALUE AFTER ADDING BIAS//////////" << endl;
+	
+	for (int i = 0; i < vector_sum.size(); i++) {
+		vector_sum[i] = a[i] + b[i];
+		cout << vector_sum[i] << endl;
+	}
+	
+	return vector_sum;
+}
+
+vector<float> matrix_substitution(vector<float> a, vector<float> b) {
+	
+	vector<float> vector_remainder(a.size());
+	
+	for (int i = 0; i < vector_remainder.size(); i++) {
+		vector_remainder[i] = a[i] - b[i];
+	}
+	
+	return vector_remainder;
+}
+
+vector<float> matrix_multiplication(vector<float> a, vector<float> b) {
+	
+	vector<float> vector_product(a.size());
+	
+	for (int i = 0; i < vector_product.size(); i++) {
+		vector_product[i] = a[i] * b[i];
+	}
+	
+	return vector_product;
+}
+
+///////////////////////////FUNCTIONS TO CALCULATE DOT PRODUCT///////////////////////////
+
+vector<float> dot_product_for_ff(vector<vector<float>> weights, vector<float> input) {
 	
 	// Create vector of same length as number of neurons in NEXT layer.
 	vector<float> dp_value(weights[0].size());
@@ -44,18 +91,18 @@ vector<float> dot_product(vector<vector<float>> weights, vector<float> input) {
 	return dp_value;
 }
 
-vector<float> matrix_addition(vector<float> a, vector<float> b) {
-	
-	vector<float> vector_sum(a.size());
-	
-	cout << "//////////SHOWING NEW VALUE AFTER ADDING BIAS//////////" << endl;
-	
-	for (int i = 0; i < vector_sum.size(); i++) {
-		vector_sum[i] = a[i] + b[i];
-		cout << vector_sum[i] << endl;
+vector<vector<float>> dot_product_for_delta_w(vector<float> activation, vector<float> error) {
+	vector<vector<float>> dw;
+	dw.resize(activation.size());
+	for (int i = 0; i < activation.size(); i++) {	
+		dw[i].resize(error.size());		
+		for (int j = 0; j < error.size(); j++) {
+			dw[i][j] = activation[i] * error[j];
+		}
 	}
 	
-	return vector_sum;
+	return dw;
+	
 }
 
 ///////////////////////////FUNCTIONS TO DISPLAY VALUES///////////////////////////
