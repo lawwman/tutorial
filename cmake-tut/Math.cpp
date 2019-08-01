@@ -5,12 +5,12 @@
 
 using namespace std;
 
-float sigmoid(float x) {
+double sigmoid(double x) {
 	return 1 / (1 + exp(-x));
 }
 
-vector<float> sigmoid_of_vector(vector<float> x) {
-	vector<float> sigmoid_vector(x.size());
+vector<double> sigmoid_of_vector(vector<double> x) {
+	vector<double> sigmoid_vector(x.size());
 	
 	for (int i = 0; i < x.size(); i++) {
 		sigmoid_vector[i] = sigmoid(x[i]);
@@ -19,35 +19,33 @@ vector<float> sigmoid_of_vector(vector<float> x) {
 	return sigmoid_vector;
 }
 
-vector<float> sigmoid_prime_of_vector(vector<float> x) {
+vector<double> sigmoid_prime_of_vector(vector<double> x) {
 	
-	vector<float> one_minus_sigmoid(x.size());
-	vector<float> sigmoid_ = sigmoid_of_vector(x);
+	vector<double> one_minus_sigmoid(x.size());
+	vector<double> sigmoid_ = sigmoid_of_vector(x);
 	
 	for (int i = 0; i < x.size(); i++) {
-		one_minus_sigmoid[i] = 1 - sigmoid_[i];
+		one_minus_sigmoid[i] = 1.0 - sigmoid_[i];
 	}
 	
 	return matrix_multiplication(one_minus_sigmoid, sigmoid_);
 }
 
-vector<float> matrix_addition(vector<float> a, vector<float> b) {
+vector<double> matrix_addition(vector<double> a, vector<double> b) {
 	
-	vector<float> vector_sum(a.size());
+	vector<double> vector_sum(a.size());
 	
-	cout << "//////////SHOWING NEW VALUE AFTER ADDING BIAS//////////" << endl;
 	
 	for (int i = 0; i < vector_sum.size(); i++) {
 		vector_sum[i] = a[i] + b[i];
-		cout << vector_sum[i] << endl;
 	}
 	
 	return vector_sum;
 }
 
-vector<float> matrix_substitution(vector<float> a, vector<float> b) {
+vector<double> matrix_substitution(vector<double> a, vector<double> b) {
 	
-	vector<float> vector_remainder(a.size());
+	vector<double> vector_remainder(a.size());
 	
 	for (int i = 0; i < vector_remainder.size(); i++) {
 		vector_remainder[i] = a[i] - b[i];
@@ -56,9 +54,9 @@ vector<float> matrix_substitution(vector<float> a, vector<float> b) {
 	return vector_remainder;
 }
 
-vector<float> matrix_multiplication(vector<float> a, vector<float> b) {
+vector<double> matrix_multiplication(vector<double> a, vector<double> b) {
 	
-	vector<float> vector_product(a.size());
+	vector<double> vector_product(a.size());
 	
 	for (int i = 0; i < vector_product.size(); i++) {
 		vector_product[i] = a[i] * b[i];
@@ -69,33 +67,46 @@ vector<float> matrix_multiplication(vector<float> a, vector<float> b) {
 
 ///////////////////////////FUNCTIONS TO CALCULATE DOT PRODUCT///////////////////////////
 
-vector<float> dot_product_for_ff(vector<vector<float>> weights, vector<float> input) {
+vector<double> dot_product_for_ff(vector<vector<double>> weights, vector<double> input) {
 	
 	// Create vector of same length as number of neurons in NEXT layer.
-	vector<float> dp_value(weights[0].size());
+	vector<double> dp_value(weights[0].size());
 	
 	// Getting weighted sum for each dp_value element
 	for (int i = 0; i < dp_value.size(); i++) {
-		float sum = 0;
+		double sum = 0;
 		for (int j = 0; j < input.size(); j++) {
 			sum += weights[j][i] * input[j];
 		}
 		dp_value[i] = sum;
 	}
 	
-	cout << "//////////SHOWING NEW DP VALUE//////////" << endl;
+	return dp_value;
+}
+
+vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double> input) {
+	
+	// Create vector of same length as number of neurons in NEXT layer.
+	vector<double> dp_value(weights.size());
+	
+	// Getting weighted sum for each dp_value element
 	for (int i = 0; i < dp_value.size(); i++) {
-		cout << dp_value[i] << endl;
+		double sum = 0;
+		for (int j = 0; j < input.size(); j++) {
+			sum += weights[i][j] * input[j];
+		}
+		dp_value[i] = sum;
 	}
 	
 	return dp_value;
 }
 
-vector<vector<float>> dot_product_for_delta_w(vector<float> activation, vector<float> error) {
-	vector<vector<float>> dw;
+vector<vector<double>> dot_product_for_delta_w(vector<double> activation, vector<double> error) {
+	vector<vector<double>> dw;
 	dw.resize(activation.size());
+	
 	for (int i = 0; i < activation.size(); i++) {	
-		dw[i].resize(error.size());		
+		dw[i].resize(error.size());
 		for (int j = 0; j < error.size(); j++) {
 			dw[i][j] = activation[i] * error[j];
 		}
@@ -107,7 +118,7 @@ vector<vector<float>> dot_product_for_delta_w(vector<float> activation, vector<f
 
 ///////////////////////////FUNCTIONS TO DISPLAY VALUES///////////////////////////
 
-void show_weights(vector<vector<vector<float>>> weights) {
+void show_weights(vector<vector<vector<double>>> weights) {
 	
 	cout << "//////////SHOWING WEIGHTS OF NN//////////" << endl;
 	
@@ -122,7 +133,7 @@ void show_weights(vector<vector<vector<float>>> weights) {
 	}
 }
 
-void show_bias(vector<vector<float>> bias) {
+void show_bias(vector<vector<double>> bias) {
 	
 	cout << "//////////SHOWING BIAS OF NN//////////" << endl;
 	
@@ -135,7 +146,7 @@ void show_bias(vector<vector<float>> bias) {
 	}
 }
 
-void show_activation(vector<vector<float>> a) {
+void show_activation(vector<vector<double>> a) {
 	
 	cout << "//////////SHOWING ACTIVATION OF NN//////////" << endl;
 	

@@ -5,6 +5,7 @@
 #include <ctime>
 #include <math.h>
 #include "Math.hpp"
+#include "util.hpp"
 
 using namespace std;
 
@@ -15,14 +16,14 @@ list<int> listOfLayers; // A vector containing the number of neurons in each lay
 /*
  * A vector containing vectors of biases for each neuron in each layer, except first layer.
  */
-vector<vector<float>> bias;
-vector<vector<float>> delta_bias;
+vector<vector<double>> bias;
+vector<vector<double>> delta_bias;
 
 /* ##Note## I used a my own naming convention to explain my vectors for weights.
  * Layer_vector or the outer-most vector is a vector with length = num_layers - 1.
  * Layer_vector's elements are neuron_vectors, each with length = num of neurons.
  * Neuron_vector's elements are weight_vectors, each with length = num of neurons in next layer.
- * Weight_vector's elements are float values, each corresponding to the weight between itself and
+ * Weight_vector's elements are double values, each corresponding to the weight between itself and
  * each neuron in the next layer.
  * weights[0] would be the vector of weights between all the neurons in the first layer and all the
  * other neurons in the next layer.
@@ -31,16 +32,16 @@ vector<vector<float>> delta_bias;
  * weights[0][1][2] would be the vector of weights between the 2nd neuron in the 1st layer and the
  * 3rd neuron in the next layer.
  */
-vector<vector<vector<float>>> weights;
-vector<vector<vector<float>>> delta_weights;
+vector<vector<vector<double>>> weights;
+vector<vector<vector<double>>> delta_weights;
 
 /* List of activation values for each layer */
-vector<vector<float>> activation;
+vector<vector<double>> activation;
 
 /* List of z values for each layer */
-vector<vector<float>> zs;
+vector<vector<double>> zs;
 
-vector<float> input;
+double learning_rate = 0.1;
 
 void test(int i) {
 	cout << "test " << i << endl;
@@ -93,17 +94,20 @@ int setup() {
 	
 	// To set random numbers
 	srand(time(NULL));
+	
 	it = listOfLayers.begin();
 	it++;
 	
 	// Since vector size was not declared before, need to resize before giving values.
 	bias.resize(num_layers - 1);
 	delta_bias.resize(num_layers - 1);
+	
 	for (int i = 0; i < num_layers - 1; i++) {
 		bias[i].resize(*it);
 		delta_bias[i].resize(*it);
 		for (int j = 0; j < *it; j++) {
 			bias[i][j] = rand()%2;
+			delta_bias[i][j] = 0;
 		}
 		it++;
 	}
@@ -127,6 +131,7 @@ int setup() {
 			delta_weights[i][j].resize(*next);
 			for (int k = 0; k < *next; k++) {
 				weights[i][j][k] = rand()%2;
+				delta_weights[i][j][k] = 0;
 			}
 		}
 		curr++;
@@ -136,7 +141,7 @@ int setup() {
 }
 
 // Returns the output of the network, given an input
-vector<float> feedforward(vector<float> input) {
+vector<double> feedforward(vector<double> input) {
 	
 	list<int>::iterator it = listOfLayers.begin();
 	
@@ -159,24 +164,60 @@ vector<float> feedforward(vector<float> input) {
 		activation[i].resize(*it);
 		zs[i].resize(*it);
 		it++;
-		
 		// Feed forward from layer (i-1) to layer i.
-		zs[i] = dot_product_for_ff(weights[i-1], activation[i-1]);
-		zs[i] = matrix_addition(zs[i], bias[i-1]);
+		zs[i] = dot_product_for_ff(weights[i - 1], activation[i - 1]);
+		zs[i] = matrix_addition(zs[i], bias[i - 1]);
 		activation[i] = sigmoid_of_vector(zs[i]);
 	}
 	
 	return activation[num_layers - 1];
 }
 
-// Trains the network to learn the new weights and bias using a vector of input vectors
-void backprop(vector<vector<float>> input, vector<vector<float>> expected) {
+void update_weights_and_bias() {
 	
+	list<int>::iterator curr = listOfLayers.begin(); // iterator for current layer.
+	list<int>::iterator next = listOfLayers.begin(); // iterator for next layer.
+	next++;
+
+	for (int i = 0; i < num_layers - 1; i++) {
+		for (int j = 0; j < *curr; j++) {
+			for (int k = 0; k < *next; k++) {
+				weights[i][j][k] -= learning_rate * delta_weights[i][j][k];
+			}
+		}
+		curr++;
+		next++;
+	}
+	
+	list<int>::iterator it = listOfLayers.begin();
+	it++;
+	
+	for (int i = 0; i < num_layers - 1; i++) {
+		for (int j = 0; j < *it; j++) {
+			bias[i][j] += -1 * learning_rate * delta_bias[i][j];
+		}
+		it++;
+	}
+}
+
+// Trains the network to learn the new weights and bias using a vector of input vectors
+void backprop(vector<vector<double>> input, vector<vector<double>> expected) {
+	
+	// Set up list of delta values to be used
+	vector<vector<double>> delta_list(num_layers - 1);
+	list<int>::iterator it = listOfLayers.begin();
+	it++;
+	for (int i = 0; i < num_layers - 1; i++) {
+		delta_list[i].resize(*it);
+		it++;
+	}
+	
+	// Train network for each input value given
 	for (int i = 0; i < input.size(); i++) {
 		// Get the activation and zs values
-		vector<float> outcome = feedforward(input[i]);
+		vector<double> outcome = feedforward(input[i]);
 		
-		vector<float> delta_last_layer = matrix_multiplication(matrix_substitution(activation[num_layers
+		vector<double> delta_last_layer = matrix_multiplication(matrix_substitution(activation[num_layers
 			- 1], expected[i]), sigmoid_prime_of_vector(zs[num_layers - 1]));
 		
 		// (num_layers - 2) because bias has length of (num_layers - 1)
@@ -186,14 +227,21 @@ void backprop(vector<vector<float>> input, vector<vector<float>> expected) {
 		delta_weights[num_layers - 2] = dot_product_for_delta_w(activation[num_layers - 2],
 			delta_last_layer);
 		
+		delta_list[num_layers - 2] = delta_last_layer;
+		
 		for (int j = 2; j < num_layers; j++) {
-			// vector<float> delta = hmmmm...
 			
-			delta_bias[num_layers - j - 1] = delta;
+			vector<double> temp = dot_product_for_bp(weights[num_layers - j],
+				delta_list[num_layers - j]);
+				
+			delta_list[num_layers - j - 1] = matrix_multiplication(temp, sigmoid_prime_of_vector(zs[num_layers - j]));
+			
+			delta_bias[num_layers - j - 1] = delta_list[num_layers - j - 1];
 			
 			delta_weights[num_layers - j - 1] = dot_product_for_delta_w(activation[num_layers - j - 1],
-				delta);
+				delta_list[num_layers - j - 1]);
 		}
+		update_weights_and_bias();
 	}
 }
 
@@ -201,15 +249,36 @@ int main() {
 	
 	int check = setup();
 	if (check == 0) return 0; // There is an error, end the program.
+
+	vector<vector<vector<double>>> dataset = generate_train_test_data();
+	for (int i = 0; i < 50; i++) {
+		cout << "Epoch: " << i << endl;
+		backprop(dataset[0], dataset[1]);
+	}
+	
+	show_weights(delta_weights);
+	show_bias(delta_bias);
 	
 	show_weights(weights);
 	show_bias(bias);
 	
-	input = {3, 2, 3};
-	
-	vector<float> outcome = feedforward(input);
-	show_activation(activation);
+	int correct = 0;
 
+	for (int i = 0; i < dataset[2].size(); i++) {
+		vector<double> test = feedforward(dataset[2][i]);
+		cout << "/////////////////////////" << endl;
+		cout << test[0] << " " << test[1] << endl;
+		cout << dataset[3][i][0] << " " << dataset[3][i][1] << endl;
+		cout << dataset[2][i][0] << " " << dataset[2][i][1] << endl;
+		
+		if (dataset[3][i][0] == 1) {
+			if (test[0] > 0.6 && test[1] < 0.4) correct += 1;
+		}
+		else {
+			if (test[0] < 0.4 && test[1] > 0.6) correct += 1;
+		}
+	}
 	
+	cout << "Number of correct predictions: " << correct << endl;
 	return 0;
 }
