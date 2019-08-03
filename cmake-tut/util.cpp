@@ -14,10 +14,13 @@ vector<vector<vector<double>>> generate_train_test_data() {
 	// Eqn: Y = X1
 	// Given coordinate X and Y, if it is higher than the line, Y = {1, 0}, else Y = {0, 1}.
 	
-	data_set[0].resize(400);
-	data_set[1].resize(400);
-	data_set[2].resize(40);
-	data_set[3].resize(40);
+	int training_length = 1;
+	int test_length = 40;
+	
+	data_set[0].resize(training_length);
+	data_set[1].resize(training_length);
+	data_set[2].resize(test_length);
+	data_set[3].resize(test_length);
 	
 	srand(time(NULL));
 	
@@ -25,10 +28,10 @@ vector<vector<vector<double>>> generate_train_test_data() {
 	
 	int count = 0;
 
-	for (int i = 0; i < 440; i++) {  // 80 to train, 20 to test
+	for (int i = 0; i < training_length + test_length; i++) {  // 80 to train, 20 to test
 	
-		double train_x1 = rand()%70;
-		double train_x2 = rand()%70;
+		double train_x1 = rand()%30;
+		double train_x2 = rand()%30;
 		
 		vector<double> train_x = {train_x1, train_x2};
 		vector<double> train_y;
@@ -39,7 +42,7 @@ vector<vector<vector<double>>> generate_train_test_data() {
 		else {
 			train_y = {1, 0};
 		}
-		if (i > 399 && !test) {
+		if (i > (training_length - 1) && !test) {
 			count = 0;
 			test = true;
 		}
@@ -54,6 +57,46 @@ vector<vector<vector<double>>> generate_train_test_data() {
 		}
 		count++;
 	}
+	
+	return data_set;
+}
+
+vector<vector<vector<double>>> generate_easy_train_test_data() {
+	vector<vector<vector<double>>> data_set;
+	
+	data_set.resize(4); // Train_X, Train_Y, Test_X, Test_Y
+	
+	int training_length = 4;
+	int test_length = 4;
+	
+	data_set[0].resize(training_length);
+	data_set[1].resize(training_length);
+	data_set[2].resize(test_length);
+	data_set[3].resize(test_length);
+	
+	data_set[0][0] = {0, 1};
+	data_set[1][0] = {1};
+	
+	data_set[0][1] = {1, 0};
+	data_set[1][1] = {1};
+	
+	data_set[0][2] = {0, 0};
+	data_set[1][2] = {0};
+
+	data_set[0][3] = {1, 1};
+	data_set[1][3] = {0};
+	
+	data_set[2][0] = {0, 1};
+	data_set[3][0] = {1};
+	
+	data_set[2][1] = {1, 0};
+	data_set[3][1] = {1};
+	
+	data_set[2][2] = {0, 0};
+	data_set[3][2] = {0};
+
+	data_set[2][3] = {1, 1};
+	data_set[3][3] = {0};
 	
 	return data_set;
 }

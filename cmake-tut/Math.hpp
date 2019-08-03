@@ -27,7 +27,7 @@ vector<double> matrix_multiplication(vector<double> a, vector<double> b);
  */
 vector<double> dot_product_for_ff(vector<vector<double>> weights, vector<double> input);
 
-vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double> input);
+vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double> error);
 
 vector<vector<double>> dot_product_for_delta_w(vector<double> activation, vector<double> error);
 

@@ -194,7 +194,7 @@ void update_weights_and_bias() {
 	
 	for (int i = 0; i < num_layers - 1; i++) {
 		for (int j = 0; j < *it; j++) {
-			bias[i][j] += -1 * learning_rate * delta_bias[i][j];
+			bias[i][j] -= learning_rate * delta_bias[i][j];
 		}
 		it++;
 	}
@@ -220,14 +220,16 @@ void backprop(vector<vector<double>> input, vector<vector<double>> expected) {
 		vector<double> delta_last_layer = matrix_multiplication(matrix_substitution(activation[num_layers
 			- 1], expected[i]), sigmoid_prime_of_vector(zs[num_layers - 1]));
 		
+		delta_list[num_layers - 2] = delta_last_layer;
+		
 		// (num_layers - 2) because bias has length of (num_layers - 1)
-		delta_bias[num_layers - 2] = delta_last_layer;
+		delta_bias[num_layers - 2] = delta_list[num_layers - 2];
 		
 		// (num_layers - 2) because weights has length of (num_layers - 1)
 		delta_weights[num_layers - 2] = dot_product_for_delta_w(activation[num_layers - 2],
-			delta_last_layer);
+			delta_list[num_layers - 2]);
 		
-		delta_list[num_layers - 2] = delta_last_layer;
+		
 		
 		for (int j = 2; j < num_layers; j++) {
 			
@@ -245,23 +247,7 @@ void backprop(vector<vector<double>> input, vector<vector<double>> expected) {
 	}
 }
 
-int main() {
-	
-	int check = setup();
-	if (check == 0) return 0; // There is an error, end the program.
-
-	vector<vector<vector<double>>> dataset = generate_train_test_data();
-	for (int i = 0; i < 50; i++) {
-		cout << "Epoch: " << i << endl;
-		backprop(dataset[0], dataset[1]);
-	}
-	
-	show_weights(delta_weights);
-	show_bias(delta_bias);
-	
-	show_weights(weights);
-	show_bias(bias);
-	
+void evaluate(vector<vector<vector<double>>> dataset) {
 	int correct = 0;
 
 	for (int i = 0; i < dataset[2].size(); i++) {
@@ -272,13 +258,45 @@ int main() {
 		cout << dataset[2][i][0] << " " << dataset[2][i][1] << endl;
 		
 		if (dataset[3][i][0] == 1) {
-			if (test[0] > 0.6 && test[1] < 0.4) correct += 1;
+			if (test[0] > test[1]) correct += 1;
 		}
 		else {
-			if (test[0] < 0.4 && test[1] > 0.6) correct += 1;
+			if (test[0] < test[1]) correct += 1;
 		}
 	}
 	
 	cout << "Number of correct predictions: " << correct << endl;
+}
+
+void evaluate_easy(vector<vector<vector<double>>> dataset) {
+
+	for (int i = 0; i < dataset[2].size(); i++) {
+		vector<double> test = feedforward(dataset[2][i]);
+		cout << "/////////////////////////" << endl;
+		cout << test[0] << endl;
+		cout << dataset[3][i][0] << endl;
+		cout << dataset[2][i][0] << " " << dataset[2][i][1] << endl;
+	}
+}
+
+int main() {
+	
+	int check = setup();
+	if (check == 0) return 0; // There is an error, end the program.
+
+	vector<vector<vector<double>>> dataset = generate_easy_train_test_data();
+	
+	for (int i = 0; i < 50000; i++) {
+		backprop(dataset[0], dataset[1]);
+	}
+	
+	show_weights(delta_weights);
+	show_bias(delta_bias);
+	
+	show_weights(weights);
+	show_bias(bias);
+	
+	evaluate_easy(dataset);
+	
 	return 0;
 }

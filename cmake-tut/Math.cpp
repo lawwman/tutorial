@@ -31,6 +31,8 @@ vector<double> sigmoid_prime_of_vector(vector<double> x) {
 	return matrix_multiplication(one_minus_sigmoid, sigmoid_);
 }
 
+///////////////////////////MATRIX MATH///////////////////////////
+
 vector<double> matrix_addition(vector<double> a, vector<double> b) {
 	
 	vector<double> vector_sum(a.size());
@@ -84,7 +86,7 @@ vector<double> dot_product_for_ff(vector<vector<double>> weights, vector<double>
 	return dp_value;
 }
 
-vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double> input) {
+vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double> error) {
 	
 	// Create vector of same length as number of neurons in NEXT layer.
 	vector<double> dp_value(weights.size());
@@ -92,8 +94,8 @@ vector<double> dot_product_for_bp(vector<vector<double>> weights, vector<double>
 	// Getting weighted sum for each dp_value element
 	for (int i = 0; i < dp_value.size(); i++) {
 		double sum = 0;
-		for (int j = 0; j < input.size(); j++) {
-			sum += weights[i][j] * input[j];
+		for (int j = 0; j < error.size(); j++) {
+			sum += weights[i][j] * error[j];
 		}
 		dp_value[i] = sum;
 	}

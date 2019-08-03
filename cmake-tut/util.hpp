@@ -6,3 +6,5 @@
 using namespace std;
 
 vector<vector<vector<double>>> generate_train_test_data();
+
+vector<vector<vector<double>>> generate_easy_train_test_data();
