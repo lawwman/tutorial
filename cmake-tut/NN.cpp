@@ -283,10 +283,12 @@ int main() {
 	
 	int check = setup();
 	if (check == 0) return 0; // There is an error, end the program.
-
-	vector<vector<vector<double>>> dataset = generate_easy_train_test_data();
 	
+	vector<vector<vector<double>>> dataset = generate_easy_train_test_data();
+
 	for (int i = 0; i < 50000; i++) {
+		if (i%1000 == 0) cout << "Epoch: " << i << endl;
+		randomize_train_data(dataset);
 		backprop(dataset[0], dataset[1]);
 	}
 	
@@ -297,6 +299,7 @@ int main() {
 	show_bias(bias);
 	
 	evaluate_easy(dataset);
+	
 	
 	return 0;
 }

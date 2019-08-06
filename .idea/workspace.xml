@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57f40fff-e93b-44c9-83d2-88dc7a95f764" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tutorials.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tutorials.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-tut/Math.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/Math.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-tut/Math.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/Math.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-tut/NN.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/NN.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-tut/NN.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/NN.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-tut/util.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/util.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-tut/util.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-tut/util.hpp" afterDir="false" />
     </list>
@@ -19,17 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmake-tut/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">

@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 using namespace std;
 
@@ -99,4 +100,27 @@ vector<vector<vector<double>>> generate_easy_train_test_data() {
 	data_set[3][3] = {0};
 	
 	return data_set;
+}
+
+vector<vector<vector<double>>> randomize_train_data(vector<vector<vector<double>>> train_data) {
+	
+	int length_of_train_data = train_data[0].size();
+	vector<vector<vector<double>>> train_data_to_rand(length_of_train_data);
+	
+	// Append the training input and expected output together for it to be later randomized
+	for (int i = 0; i < length_of_train_data; i++) {
+		train_data_to_rand[i].resize(2);
+		train_data_to_rand[i][0] = train_data[0][i];
+		train_data_to_rand[i][1] = train_data[1][i];
+	}
+	
+	random_shuffle(train_data_to_rand.begin(), train_data_to_rand.end()); // Shuffles the vector
+	
+	// Return the randomized training data to the original dataset.
+	for (int i = 0; i < length_of_train_data; i++) {
+		train_data[0][i] = train_data_to_rand[i][0];
+		train_data[1][i] = train_data_to_rand[i][1];
+	}
+	
+	return train_data;
 }
