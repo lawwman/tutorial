@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <Windows.h>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ vector<vector<vector<double>>> generate_train_test_data() {
 	// Eqn: Y = X1
 	// Given coordinate X and Y, if it is higher than the line, Y = {1, 0}, else Y = {0, 1}.
 	
-	int training_length = 1;
+	int training_length = 500;
 	int test_length = 40;
 	
 	data_set[0].resize(training_length);
@@ -31,8 +32,8 @@ vector<vector<vector<double>>> generate_train_test_data() {
 
 	for (int i = 0; i < training_length + test_length; i++) {  // 80 to train, 20 to test
 	
-		double train_x1 = rand()%30;
-		double train_x2 = rand()%30;
+		double train_x1 = rand()%50;
+		double train_x2 = rand()%50;
 		
 		vector<double> train_x = {train_x1, train_x2};
 		vector<double> train_y;
@@ -123,4 +124,56 @@ vector<vector<vector<double>>> randomize_train_data(vector<vector<vector<double>
 	}
 	
 	return train_data;
+}
+
+void display_data(vector<vector<double>> train_data) {
+	// 52 because the 2 walls at the sides not included.
+	for (int i = 0; i < 52; i++) {
+		cout << "#";
+	}
+	cout << endl;
+	
+	int count = 0;
+	
+	for (int i = 0; i < 50; i++) {
+		count = 0;
+		for (int j = 0; j < 52; j++) {
+			if (j == 0 || j == 51) {
+				cout << "#";
+			}
+			else if (i == j) {
+				cout << "*";
+			}
+			else {
+				for (int k = 0; k < train_data.size(); k++) {
+					if (train_data[k][0] == j && train_data[k][1] == i) {
+						cout << train_data[k][2];
+						count++;
+						break;
+						/*
+						OK. this is how i choose to handle duplicate coordinates. Fucking ignore them
+						they aint gonna be represented in the graph if there are dups. Fuck it.
+						I could always make a function to ensure unique coordinates but hells no.
+						BREAK OUT OF THE LOOP BITCH.
+						
+						And yes. '*' has a higher priority. so fuck the other shit.
+						*/
+					}
+				}
+				if (count == 0) {
+					cout << " ";
+				}
+			}
+			if (count > 0) {
+				count--;
+			}
+			
+		}
+		cout << endl;
+	}
+	
+	for (int i = 0; i < 52; i++) {
+		cout << "#";
+	}
+	cout << endl;
 }

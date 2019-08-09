@@ -247,25 +247,55 @@ void backprop(vector<vector<double>> input, vector<vector<double>> expected) {
 	}
 }
 
-void evaluate(vector<vector<vector<double>>> dataset) {
+/* Returns the set of coordinates for the display_data function. */
+vector<vector<double>> evaluate(vector<vector<vector<double>>> dataset) {
+	
+	/* Store information about whether the test data had correct or wrong results */
+	vector<vector<double>> data(dataset[2].size());
+	
+	for (int i = 0; i < data.size(); i++) {
+		data[i].resize(dataset[2][0].size() + dataset[3][0].size());
+	}
+	
+	cout << "testing...size of display data: " << dataset[2][0].size() + 1 << endl;
+	
 	int correct = 0;
 
 	for (int i = 0; i < dataset[2].size(); i++) {
-		vector<double> test = feedforward(dataset[2][i]);
+		vector<double> output = feedforward(dataset[2][i]);
 		cout << "/////////////////////////" << endl;
-		cout << test[0] << " " << test[1] << endl;
+		
+		/* Print out the Neural network's actual output */
+		cout << output[0] << " " << output[1] << endl;
+		
+		/* Print out the Neural network's expected output */
 		cout << dataset[3][i][0] << " " << dataset[3][i][1] << endl;
+		
+		/* Print out the Neural network's input */
 		cout << dataset[2][i][0] << " " << dataset[2][i][1] << endl;
 		
 		if (dataset[3][i][0] == 1) {
-			if (test[0] > test[1]) correct += 1;
+			if (output[0] > 0.9 && output[1] < 0.1) {
+				correct += 1;
+				data[i] = {dataset[2][i][0], dataset[2][i][1], 1};
+			}
+			else {
+				data[i] = {dataset[2][i][0], dataset[2][i][1], 0};
+			}
 		}
 		else {
-			if (test[0] < test[1]) correct += 1;
+			if (output[1] > 0.9 && output[0] < 0.1) {
+				correct += 1;
+				data[i] = {dataset[2][i][0], dataset[2][i][1], 1};
+			}
+			else {
+				data[i] = {dataset[2][i][0], dataset[2][i][1], 0};
+			}
 		}
 	}
 	
 	cout << "Number of correct predictions: " << correct << endl;
+	return data;
 }
 
 void evaluate_easy(vector<vector<vector<double>>> dataset) {
@@ -281,25 +311,20 @@ void evaluate_easy(vector<vector<vector<double>>> dataset) {
 
 int main() {
 	
-	int check = setup();
-	if (check == 0) return 0; // There is an error, end the program.
+	vector<vector<vector<double>>> dataset = generate_train_test_data();
 	
-	vector<vector<vector<double>>> dataset = generate_easy_train_test_data();
-
-	for (int i = 0; i < 50000; i++) {
-		if (i%1000 == 0) cout << "Epoch: " << i << endl;
+	int check = setup();
+	if (check == 0) return 0; // There is an error in the setup, end the program.
+	
+	for (int i = 0; i < 1000; i++) {
+		if (i%1000 == 0) cout << "Epoch: " << i/1000 << endl;
 		randomize_train_data(dataset);
 		backprop(dataset[0], dataset[1]);
 	}
 	
-	show_weights(delta_weights);
-	show_bias(delta_bias);
+	vector<vector<double>> data = evaluate(dataset);
 	
-	show_weights(weights);
-	show_bias(bias);
-	
-	evaluate_easy(dataset);
-	
+	display_data(data);
 	
 	return 0;
 }
