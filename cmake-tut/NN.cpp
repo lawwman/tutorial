@@ -316,15 +316,31 @@ int main() {
 	int check = setup();
 	if (check == 0) return 0; // There is an error in the setup, end the program.
 	
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 50000; i++) {
 		if (i%1000 == 0) cout << "Epoch: " << i/1000 << endl;
 		randomize_train_data(dataset);
-		backprop(dataset[0], dataset[1]);
+		
+		vector<vector<double>> train_input(100);
+		vector<vector<double>> train_output(100);
+		
+		for (int j = 0; j < 100; j++) {
+			train_input[j] = dataset[0][j];
+			train_output[j] = dataset[1][j];
+		}
+		
+		backprop(train_input, train_output);
+		
+		if (i%20 == 0) {
+			vector<vector<double>> data = evaluate(dataset);
+			display_data(data);
+			cout << i << "th iteration. Continue?" << endl;
+			char yes;
+			cin >> yes;
+			system("cls");
+		}
 	}
 	
-	vector<vector<double>> data = evaluate(dataset);
 	
-	display_data(data);
 	
 	return 0;
 }

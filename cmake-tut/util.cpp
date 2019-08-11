@@ -141,7 +141,7 @@ void display_data(vector<vector<double>> train_data) {
 			if (j == 0 || j == 51) {
 				cout << "#";
 			}
-			else if (i == j) {
+			else if (i == j - 1) {
 				cout << "*";
 			}
 			else {
