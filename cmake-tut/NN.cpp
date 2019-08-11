@@ -42,6 +42,8 @@ vector<vector<double>> activation;
 vector<vector<double>> zs;
 
 double learning_rate = 0.1;
+int epoch = 50000;
+int batch_size = 100;
 
 void test(int i) {
 	cout << "test " << i << endl;
@@ -316,20 +318,22 @@ int main() {
 	int check = setup();
 	if (check == 0) return 0; // There is an error in the setup, end the program.
 	
-	for (int i = 0; i < 50000; i++) {
-		if (i%1000 == 0) cout << "Epoch: " << i/1000 << endl;
+	for (int i = 0; i < epoch; i++) {
 		randomize_train_data(dataset);
 		
-		vector<vector<double>> train_input(100);
-		vector<vector<double>> train_output(100);
+		// Get input and expected output for the batch.
+		vector<vector<double>> batch_input(batch_size);
+		vector<vector<double>> batch_output(batch_size);
 		
-		for (int j = 0; j < 100; j++) {
-			train_input[j] = dataset[0][j];
-			train_output[j] = dataset[1][j];
+		for (int j = 0; j < batch_size; j++) {
+			batch_input[j] = dataset[0][j];
+			batch_output[j] = dataset[1][j];
 		}
 		
-		backprop(train_input, train_output);
+		// Feed the batch into the neural network.
+		backprop(batch_input, batch_output);
 		
+		// Display the output from the neural network after every 20 iterations.
 		if (i%20 == 0) {
 			vector<vector<double>> data = evaluate(dataset);
 			display_data(data);
@@ -339,8 +343,5 @@ int main() {
 			system("cls");
 		}
 	}
-	
-	
-	
 	return 0;
 }
