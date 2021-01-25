@@ -2,6 +2,7 @@ import pandas as pd
 
 """
 Dataframe = 2D labeled data struct (like a spreadsheet or sql table). Can also think of it as a dict of series
+https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
 """
 d = {
     "numbers": pd.Series([1, 2, 3, 4, 5]),
@@ -29,3 +30,5 @@ d2 = [
 
 df2 = pd.DataFrame(d2)
 print(df2)
+
+print(df2['col1'])  # returns a series. think of df as a dict of series.
