@@ -6,9 +6,9 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html
 """
 
 df = pd.DataFrame({'col1': list(range(0, 10))})  # create dataframe from 
-# print(df.head())  # print first 5
-# print(df.tail(3))  # print last 3
-# print(df.shape)
+print(df.head())  # print first 5
+print(df.tail(3))  # print last 3
+print(df.shape)
 
 
 df = pd.DataFrame(
@@ -18,7 +18,7 @@ df = pd.DataFrame(
         "three": pd.Series([8, 9, 10], index=["b", "c", "d"]),  # only have last 3 cols
     }
 )
-# print(df)
+print(df)
 """
    one  two  three
 a  1.0    4    NaN
@@ -28,7 +28,7 @@ d  NaN    7   10.0
 """
 
 row = df.iloc[1]  # grab the 2nd row in the dataframe, i.e. 2nd item (index 'b') amongst all the columns: [2, 5, 8]
-# print(df.sub(row, axis="columns"))  # 1st item used to subtract items in 1st col. # 2nd item used to subtract items in 2nd col.
+print(df.sub(row, axis="columns"))  # 1st item used to subtract items in 1st col. # 2nd item used to subtract items in 2nd col.
 """
    one  two  three
 a -1.0   -1    NaN
@@ -37,7 +37,7 @@ c  1.0    1    1.0
 d  NaN    2    2.0
 """
 column = df['one']  # grab everything in the column 'two'
-# print(df.sub(column, axis="index"))  # 1st item used to subtract items in 1st row. # 2nd item used to subtract items in 2nd row.
+print(df.sub(column, axis="index"))  # 1st item used to subtract items in 1st row. # 2nd item used to subtract items in 2nd row.
 """
    one  two  three
 a  0.0  3.0    NaN
@@ -46,7 +46,7 @@ c  0.0  3.0    6.0
 d  NaN  NaN    NaN  <-- all NaN because first item is NaN, it is used to subtract items in row 'd'. number - NaN = NaN
 """
 df = df.fillna(0)  # replace NaN with 0
-# print(df.sub(df['one'], axis="index"))
+print(df.sub(df['one'], axis="index"))
 """
    one  two  three
 a  0.0  3.0   -1.0
@@ -63,7 +63,7 @@ df2 = pd.DataFrame(
     }
 )
 
-# print(df.gt(df2))  # eq, ne, lt, gt, le, and ge
+print(df.gt(df2))  # eq, ne, lt, gt, le, and ge
 """
      one    two  three
 a  False  False  False
@@ -71,3 +71,4 @@ b  False  False  False
 c  False  False  False
 d  False  False  False
 """
+

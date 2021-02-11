@@ -32,3 +32,26 @@ df2 = pd.DataFrame(d2)
 print(df2)
 
 print(df2['col1'])  # returns a series. think of df as a dict of series.
+
+print(df2[['col1', 'col2']])  # returns a dataframe with the selected cols.
+
+d3 = {
+    "index1": {"col1": 1, "col2": 2},
+    "index2": {"col1": 3, "col2": 4},
+}  # dict of dicts
+df3 = pd.DataFrame.from_dict(d3, orient='index')
+# orient means that the keys of the dict should be indexes. if orient is columns, then the keys are columns
+print(df3)
+"""
+        col1  col2
+index1     1     2
+index2     3     4
+"""
+print(pd.DataFrame.from_dict(d3, orient='columns'))
+"""
+      index1  index2
+col1       1       3
+col2       2       4
+"""
+
+print('col1' in df3)  # we can search if cols exist in the data frame

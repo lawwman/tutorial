@@ -72,3 +72,23 @@ print(s4 * 3)
 3    12
 dtype: int64
 """
+
+dict_used_as_mapping = {1: 5, 2: 6, 3: 7, 4: 8}
+print(s4.map(dict_used_as_mapping))  # map values of s4. elements of s4 are mapped based on the keys of dict_used_as_mapping
+"""
+0    5  <- because s4[0] == 1, and dict_used_as_mapping[1] == 5
+1    6
+2    7
+3    8
+dtype: int64
+"""
+series_used_as_mapping = pd.Series([8, 7, 6, 5], index=[3, 2, 1, 0])
+print(s4.map(series_used_as_mapping))
+"""
+0    6.0  <- because s4[0] == 1, and series_used_as_mapping[1] == 6
+1    7.0
+2    8.0
+3    NaN
+dtype: float64
+"""
+print(s4.apply(lambda x: x * 2))  # use function to multiply each element by 2
