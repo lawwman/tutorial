@@ -21,15 +21,31 @@ Essentially act as Plugins for terraform to install. They provide a set of resou
 
 They are installed when you run `terraform init`.
 
-### Example
+### Example of providers in Terraform Block
 ```
 terraform {
   required_version = ">= 0.14.0"  # version of terraform cli required
   required_providers {
     aws = {
-      source  = "hashicorp/aws"  # where to install the provider from
-      version = "~> 3.27"  # what version of the provider is required
+      source  = "hashicorp/aws"  # provider source
+      version = "~> 3.27"  # min version of provider
     }
+  }
+}
+```
+
+For more in-depth configuration settings on the provider, refer to the Provider block.
+
+### Storing State and Locks in a shared cloud with Terraform block
+
+```
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "stage/frontend-app/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "my-lock-table"
   }
 }
 ```
@@ -50,6 +66,7 @@ provider "aws" {  # using local name
 ```
 
 The block allows you to provide more in depth configurations to the provider.
+
 
 
 ## Resource Block
