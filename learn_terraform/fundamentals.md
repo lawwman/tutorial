@@ -304,7 +304,7 @@ module "vpc" {
     version = "2.66.0"
 
     for_each = var.project
-    name        = "web-server-sg-${each.key}-${each.value.environment}"
+    name     = "web-server-sg-${each.key}-${each.value.environment}"
     # ...truncated...
 }
 ```
