@@ -7,6 +7,24 @@ sock.listen(5)  # listen for incoming connections
 print("Server started...")
  ```
 
+## Bind
 `.bind()` accepts (IP address and port) pair. (Hostname | '0.0.0.0' | '' are also accepted).
 
-(IP address and port) defines the access restrictions for the socket created. Using '0.0.0.0'or '' means that it can accept connections from `any` IPv4 address provided. Specifying an IP address or hostname makes it more secure as you only bind sockets to a dedicated interface.
+While reading up on Socket programming, `bind()` has always been a weird function for me to accept, particularly with the IP Address argument. It accepts the following format:
+- actual ip address like '192.68.0.1'
+- '0.0.0.0' which accepts ip addresses on any available interfaces
+- empty string which has the same behavior as '0.0.0.0'
+- hostname, which resolves to an IP address
+
+Doubts:
+- if I assign '0.0.0.0', does it mean that this socket accepts connections from any IP address in the world?
+- What kind of IP addresses can I use? Am I free to choose?
+
+One key thing to note: `bind() defines a relationship between the socket you created and the addresses that are available on your host`. The key is `available on your host`. If your host has multiple IP addresses, you are free to choose from any of them. The '0.0.0.0' accepts any IP addresses `that your host has`.
+
+A possible reason for the host machine to have multiple IP addresses is if the host has multiple network interfaces.
+
+Specifying an IP address or hostname makes it more secure as you only bind sockets to a dedicated interface.
+
+To find your IP address and other info, type `ipconfig /all` on `cmd` (Windows).
+To look at the state of your sockets, type `netstat` in terminal (any OS).
