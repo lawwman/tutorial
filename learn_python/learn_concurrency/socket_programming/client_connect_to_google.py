@@ -4,7 +4,7 @@ import socket # for socket
 import sys 
   
 try: 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print ("Socket successfully created")
 except socket.error as err: 
     print ("socket creation failed with error %s" %(err))
