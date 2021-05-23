@@ -43,6 +43,14 @@ def simple_groupby_example():
     print(df2)
 
 
+def groupby_obj_attributes():
+    df = simple_df.copy(deep=True)
+    groupby_obj = df.groupby(pd.Grouper(key='Animal'))  # returns a groupby object
+
+    print(groupby_obj.groups)  # {'Falcon': [0, 1], 'Parrot': [2, 3]}
+    print(len(groupby_obj))  # return length of .groups dict. ans: 2
+
+
 def simple_grouper_example():
     df = simple_df.copy(deep=True)
     groupby_obj = df.groupby(pd.Grouper(key='Animal'))  # returns a groupby object
@@ -69,18 +77,4 @@ def simple_grouper_freq_example():
     print(df2["Publish date"])
 
 
-def test():
-    df = pd.DataFrame(
-        {
-            "A": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "foo"],
-            "B": ["one", "one", "two", "three", "two", "two", "one", "three"],
-            "C": np.random.randn(8),
-            "D": np.random.randn(8),
-        }
-    )
-
-    print(df)
-    df2 = df.set_index(["A", "B"])
-
-
-test()
+groupby_obj_attributes()
