@@ -108,7 +108,7 @@ def simple_grouper_freq_example():
 
     df = freq_df2.copy(deep=True)
     df2 = df.groupby(["ID", pd.Grouper(key="Publish date", freq="5 min")]).max()
-    print(df2)
+    # print(df2)
     #                                             Publish date
     # ID Publish date                                       
     # 0  2000-01-01 00:00:00+08:00   2000-01-01 00:00:00+08:00
