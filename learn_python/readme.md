@@ -1,30 +1,11 @@
 ## Requirement
 - python and pip installed
-- Pipenv for python env management
 
+## Managing virtual envs
+I'm using [venv](https://docs.python.org/3/library/venv.html) for managing my envs. Guide can be found [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)
 
-## Installing pipenv
+### Why?
+Out of the box. Easier. Cons of venv is that the version of Python itself is fixed to the installed version. It is only good for managing 3rd party python packages. But good enough for me. I want it easy.
 
-### For Ubuntu
-`pip install pipenv`
-`pip install --upgrade pipenv` -> to upgrade current version
-### For MacOS
-`brew install pipenv`
+## Initial Setup
 
-## Initial setup
-`cd learn_python`\
-`pipenv --python 3.8` -> set up Pipfile and virtual env for python version 3.8\
-`pipenv shell` -> enter virtual env
-
-## Setting up
-`cd learn_python`\
-`pipenv shell`\
-`pipenv install` -> installs the packages from `pipfile.lock`
-
-## Installing new packages
-`pipenv install pandas` -> You can verify with `pipenv run pip list`
-
-
-## Removing environment
-
-Before deleting `Pipfile`, run `pipenv --rm` to remove the virtual environment.
