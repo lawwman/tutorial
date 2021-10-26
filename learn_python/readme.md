@@ -8,4 +8,4 @@ I'm using [venv](https://docs.python.org/3/library/venv.html) for managing my en
 Out of the box. Easier. Cons of venv is that the version of Python itself is fixed to the installed version. It is only good for managing 3rd party python packages. But good enough for me. I want it easy.
 
 ## Initial Setup
-
+python -m venv env
