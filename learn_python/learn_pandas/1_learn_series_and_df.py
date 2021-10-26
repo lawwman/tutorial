@@ -8,21 +8,20 @@ Dataframe = 2D labeled data struct (like a spreadsheet or sql table). Can also t
 https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
 """
 
-def create_series(example_type):
-    if example_type == 1:
-        return pd.Series(['a', 'b', 'c', 'd'])  # 'a' is labelled by index 0, 'b' is labelled by index 1 etc
-        """
-        0    a
-        1    b
-        2    c
-        3    d
-        dtype: object
-        """
-        # If you want to set the labels yourself,  `pd.Series(['a', 'b', 'c', 'd'], index=[0, 1, 2, 3])` or `pd.Series({0: 'a', 1: 'b', 2: 'c', 3: 'd'})` works
+def create_series():
+    return pd.Series(['a', 'b', 'c', 'd'])  # 'a' is labelled by index 0, 'b' is labelled by index 1 etc
+    """
+    0    a
+    1    b
+    2    c
+    3    d
+    dtype: object
+    """
+    # pd.Series({0: 'a', 1: 'b', 2: 'c', 3: 'd'}) works too.
 
 
 def series_tricks():
-    s = create_series(1)
+    s = create_series()
     # Series is dict-like (dict-like ways of accessing values with 'keys' work too)
     print(s3['a'])  # a
     print(s3.get('a'))  # a
