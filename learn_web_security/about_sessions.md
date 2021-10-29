@@ -1,8 +1,11 @@
-Client vs Server Security
-Cookies
-Read up https and vulnerabilities that it prevents.
-Read up CSFR
-Read up JWT
+## [HTTPS](https://www.cloudflare.com/en-gb/learning/ssl/what-is-https/)
 
-OAUTH2
-https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9
+Basically a secure version of HTTP. HTTP sends messages in plain text, HTTPS sends them in cipher text. It is able to send cipher text thanks to the power of [TLS](https://www.cloudflare.com/en-gb/learning/ssl/transport-layer-security-tls/) protocol.
+
+## [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+## [CSFR](https://www.educative.io/edpresso/what-is-cross-site-request-forgery-csfr)
+
+## [JWT youtube video](https://www.youtube.com/watch?v=7Q17ubqLfaM)
+
+## [OAUTH2](https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9)
