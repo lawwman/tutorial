@@ -24,3 +24,6 @@ Out of the box. Easier. Cons of venv is that the version of Python itself is fix
 `python -m pip install pandas`
 `python -m pip list` <- Check on python packages
 `python -m pip freeze > requirements.txt` <- Update requirements.txt
+
+## Gotchas
+I don't think the `env` folder will be valid if you change the location of `learn_python`. we gotta delete `env` and run `Initial Setup` again if location is changed.

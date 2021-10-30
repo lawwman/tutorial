@@ -51,8 +51,21 @@ From the browser pov:
 
 
 # XSS
-https://owasp.org/www-community/attacks/xss/ \
-https://www.veracode.com/security/xss \
-https://portswigger.net/web-security/cross-site-scripting/reflected \
-Victim: Other users, not the backend. \
-Targets a flaw in a web application and sends malicious code to be executed in the victim’s browser / application.
+
+For what it's about: \
+- [Not bad explanation by the owasp site](https://owasp.org/www-community/attacks/xss/).
+- trying to find a nicer explanation article...
+
+## Stored XSS (aka Persistent)
+Malicious script is `stored` in a web app's server. Possible scenario? If the web app stores user input (forum, social media, online shop). Without proper validation, malicious content can get uploaded and persistently stored.
+
+When a victim retrieves the stored data, and the web app does not do any filtering, malicious code can be executed on the victim's browser.
+
+## Reflected XSS (aka Non-Persistent)
+Say we have a "trusted" site that has a search function. `https://insecure-website.com/search?term=gift`, and then the site's http response `reflects` that same `gift` in the browser with `<p>You searched for: gift</p>`.
+
+With this, you are now able to `reflect` other types on stuff to be rendered in the browser. `https://insecure-website.com/search?term=<script>/*+Bad+stuff+here...+*/</script>`. \
+[Source](https://portswigger.net/web-security/cross-site-scripting/reflected)
+
+## DOM Based
+

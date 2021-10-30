@@ -4,7 +4,12 @@ Basically a secure version of HTTP. HTTP sends messages in plain text, HTTPS sen
 
 ## [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
-## [CSFR](https://www.educative.io/edpresso/what-is-cross-site-request-forgery-csfr)
+## CSFR
+- [Are Cookies in other tabs sent in every request?!](https://stackoverflow.com/questions/3514750/how-browser-relates-the-cookies-for-web-sites-in-each-tab)
+- https://owasp.org/www-community/attacks/csrf
+- https://www.educative.io/edpresso/what-is-cross-site-request-forgery-csfr
+
+read up CSFR tokens in cookies and sameSite attribute in cookies.
 
 ## [JWT youtube video](https://www.youtube.com/watch?v=7Q17ubqLfaM)
 
