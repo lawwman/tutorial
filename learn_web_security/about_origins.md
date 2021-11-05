@@ -1,4 +1,7 @@
-# [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
+# Browser Enforced Policies
+
+
+## [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
 
 Origin is `protocol` + `domain` + `port`
 
