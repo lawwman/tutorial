@@ -1,8 +1,5 @@
 ## Current reading list:
 
-CSS
-https://www.youtube.com/watch?v=1Rs2ND1ryYc
-
 XSS
 https://www.youtube.com/watch?v=nTCDQ0UmFgE
 
