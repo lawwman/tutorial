@@ -1,4 +1,4 @@
-## Current reading list:
+## Current reading/watch list:
 
 XSS
 https://www.youtube.com/watch?v=nTCDQ0UmFgE
