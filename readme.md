@@ -1,8 +1,5 @@
 ## Current reading/watch list:
 
-XSS
-https://www.youtube.com/watch?v=nTCDQ0UmFgE
-
 are functions objects in JS:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
 
