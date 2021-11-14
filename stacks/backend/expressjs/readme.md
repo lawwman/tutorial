@@ -19,15 +19,34 @@ app.listen(3000)
 ## Routing
 `app.get(), app.post(), app.put(), app.delete()`.
 
-There is a special `app.all()`
+Express works in top down manner.
+```
+app.get('/', (req, res) => { res.send('Welcome to index.html') }); // matches on root path
+
+app.get('/about', (req, res) => { res.send('Welcome to about page') }); // matches with /about endpoint
+
+app.use((req, res) => { res.status(404).send('This is the 404 page') }); // This will match any endpoint.
+```
+*if `app.use()` is called first, then app.get('/') and app.get('/about') wont be called.*
 
 ## Middleware
 
-What the hell is middleware? I guess whatever logic that sits between the incoming request and outgoing response. Guess everything is middleware?
+What the hell is middleware? *Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle.*
 
-`app.get()` runs only for GET requests. But its a middleware too. `app.use()` runs for all requests, regardless of the method.
+First, a little on routing for Express: `app.get()` runs only for GET requests. `app.use()` runs for all requests, regardless of the method.
 
-`app.use()`
+My feeling: *When you code in Express, you are always "chaining" functions together. When a request comes in, you could chain 1 to many different `middleware` functions to handle the request. Just a different way of thinking, which allows for flexibility! How? You could have 3rd party middleware, which helps speed up development really quickly.*
+
+```
+var myLogger = function (req, res, next) { // This is a valid middleware function! Because it expects to receive request, response object and next function.
+  console.log('LOGGED');
+  next();
+}
+
+app.use(myLogger); // All middleware functions after this line will be called AFTER `myLogger`
+```
+
+Following the above example, you could simply chain lots of `app.use()` one after the other till you eventually return the response object back to the client.
 
 
 ## View Engine
@@ -50,14 +69,3 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' }) // replaces `title` and `message` in the index.pug file
 })
 ```
-
-## Gotchas
-Express works in top down manner.
-```
-app.get('/', (req, res) => { res.send('Welcome to index.html') }); // matches on root path
-
-app.get('/about', (req, res) => { res.send('Welcome to about page') }); // matches with /about endpoint
-
-app.use((req, res) => { res.status(404).send('This is the 404 page') }); // This will match any endpoint.
-```
-*if `app.use()` is called first, then app.get('/') and app.get('/about') wont be called.*
