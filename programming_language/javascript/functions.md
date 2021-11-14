@@ -1,8 +1,18 @@
 # Functions
 
-## [get()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [set()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)
+## [Expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) and [Declaration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)
 
-### get()
+```
+function calcRectArea(width, height) { // Function Declaration
+  return width * height;
+}
+
+const getRectArea = function(width, height) { // Function Expression
+  return width * height;
+};
+```
+
+## [get()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get)
 ```
 const obj = {
   something: 'something',
@@ -26,7 +36,7 @@ console.log(obj.foo); // "bar"
 ```
 Example of using a computed property name. Pretty cool!
 
-### set()
+## [set()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)
 ```
 const language = {
   set current(name) {

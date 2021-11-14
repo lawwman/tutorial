@@ -1,9 +1,5 @@
 ## Current reading/watch list:
 
-`This` keyword
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
-https://www.w3schools.com/js/js_t his.asp
-
 `ReactJS`
 https://www.youtube.com/watch?v=Z5iWr6Srsj8 React with TS
 
