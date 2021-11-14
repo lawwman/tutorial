@@ -1,11 +1,8 @@
 ## Current reading/watch list:
 
-are functions objects in JS:
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
-
 `This` keyword
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
-https://www.w3schools.com/js/js_this.asp
+https://www.w3schools.com/js/js_t his.asp
 
 `ReactJS`
 https://www.youtube.com/watch?v=Z5iWr6Srsj8 React with TS
