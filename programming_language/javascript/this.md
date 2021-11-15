@@ -6,7 +6,7 @@ reads:
 
 
 ## `this` refers to the Global object when in `Global Context` (outside of any function) or `Function Context` (inside a function)
-```
+```javascript
 function f1() {
   return this;
 }
@@ -22,7 +22,7 @@ f1() === window;  // true. f1() === undefined if this script is in strict mode
 ## As an object method
 When a function is called as a method of an object, its `this` is set to the object the method is called on.
 
-```
+```javascript
 const obj = {
   someProperty: 'a',
   someMethod: function () {
@@ -38,7 +38,7 @@ obj.someMethod(); // Returns 'a'
 ## Class Context
 Just like with regular functions, the value of this within methods depends on how they are called. Sometimes it is useful to override this behavior so that this within classes always refers to the class instance. To achieve this, bind the class methods in the constructor:
 
-```
+```javascript
 class Car {
   constructor() {
     // Bind sayBye but not sayHi to show the difference

@@ -10,3 +10,5 @@
 - https://expressjs.com/en/starter/static-files.html
 - then update the readme.md in `/expressjs`
 - https://zellwk.com/blog/async-await-express/
+
+> Gotta read up!

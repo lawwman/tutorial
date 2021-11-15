@@ -5,7 +5,7 @@
 ## [Main site](https://expressjs.com/)
 - Disappointing, I learnt better from youtube videos than the main site...
 
-```
+```javascript
 const express = require('express')
 const app = express()
  
@@ -20,7 +20,7 @@ app.listen(3000)
 `app.get(), app.post(), app.put(), app.delete()`.
 
 Express works in top down manner.
-```
+```javascript
 app.get('/', (req, res) => { res.send('Welcome to index.html') }); // matches on root path
 
 app.get('/about', (req, res) => { res.send('Welcome to about page') }); // matches with /about endpoint
@@ -37,7 +37,7 @@ First, a little on routing for Express: `app.get()` runs only for GET requests. 
 
 My feeling: *When you code in Express, you are always "chaining" functions together. When a request comes in, you could chain 1 to many different `middleware` functions to handle the request. Just a different way of thinking, which allows for flexibility! How? You could have 3rd party middleware, which helps speed up development really quickly.*
 
-```
+```javascript
 var myLogger = function (req, res, next) { // This is a valid middleware function! Because it expects to receive request, response object and next function.
   console.log('LOGGED');
   next();
