@@ -29,13 +29,13 @@ app.use((req, res) => { res.status(404).send('This is the 404 page') }); // This
 ```
 *if `app.use()` is called first, then app.get('/') and app.get('/about') wont be called.*
 
+My thoughts: *Express is all about routing the URI to the right callback / handler function.*
+
 ## Middleware
 
-What the hell is middleware? *Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle.*
+What the hell is middleware? *Handling http requests comes down to `app.METHOD(PATH, HANDLER)`. Middleware functions are the `HANDLER()` functions, that have access to the `request object (req)`, the `response object (res)`, and the `next function` in the application’s request-response cycle. E.g. `app.get('/', function(req, res, next) {console.log("I'm a middleware function")})`*
 
-First, a little on routing for Express: `app.get()` runs only for GET requests. `app.use()` runs for all requests, regardless of the method.
-
-My feeling: *When you code in Express, you are always "chaining" functions together. When a request comes in, you could chain 1 to many different `middleware` functions to handle the request. Just a different way of thinking, which allows for flexibility! How? You could have 3rd party middleware, which helps speed up development really quickly.*
+My feeling: *When you code in Express, you are adding layers of middleware functions on top of each other. Each middleware function can call `next()` and pass the request on to the next middleware, which allows for flexibility! How? You could have 3rd party middleware, which helps speed up development really quickly.*
 
 ```javascript
 var myLogger = function (req, res, next) { // This is a valid middleware function! Because it expects to receive request, response object and next function.

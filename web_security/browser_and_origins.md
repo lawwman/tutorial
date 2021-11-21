@@ -2,7 +2,7 @@
 
 ## [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
 
-Origin is `protocol` + `domain` + `port`
+Origin = `protocol` + `domain` + `port`.
 
 Let's say that I’m a browser. I load a website from a URL. Whatever server / origin / source that it comes from, let's call that `origin A`.
 
@@ -11,7 +11,7 @@ The website from `origin A` also needs resources from another server, `origin B`
 - What if `origin B` returns a script that has malicious intent?
 - Should an untrusted `origin A` be allowed to call `origin B` (which the user is signed into)?
 
-As the browser, I should enforce that scripts loaded from an origin can only make requests to the same origin. This is the Same Origin Policy.
+As the browser, I should enforce that scripts loaded from an origin can only make requests to the same origin.
 
 ## What restrictions does [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#cross-origin_network_access) have?!
 
@@ -22,7 +22,7 @@ I can still load resources (scripts, img, video) from a different origin IF I em
 
 I can even send http requests to other origins... What? Same Origin Policy not working??
 
-What can't I do? Well, its the responses from other origins that are blocked! Let me be specific...
+Seems like I can still do a lot. What can't I do? Well, its the responses from other origins that are blocked! Let me be specific...
 - I can still send http requests to another origin, HUH... Same Origin Policy allows it!
 - Other origins can receive and return a response! HUH...
 - But browser detects that the response is from different origin. HERE IS THE BLOCK!
