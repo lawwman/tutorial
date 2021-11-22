@@ -140,7 +140,7 @@ export class AppComponent {
   title = 'angular-tut';
 }
 ```
-The dynamic behavior that Javascript provides is within the `component` class. You define your `html` and `css` files as well in the `@Component` decorator. By now you should realise that Angular uses decorators very heavily. *I don't know how to feel about that.*
+The `component` class contains whatever variable, methods that you require to give your `component` dynamic behavior. You define your `html` and `css` files as well in the `@Component` decorator. By now you should realise that Angular uses decorators very heavily. *I don't know how to feel about that.*
 
 > Remember, what makes it a component, is the `@Component` decorator!
 
@@ -158,3 +158,58 @@ We can define our templates and css directly in the `@Component` metadata.
 ```
 
 Now you might be wondering, why is it called `template`?? Isn't it just `html`?
+
+Well that is because Angular uses its own `template` syntax, but borrows the `html` file type. It is very similar but there are slight differences. You can:
+- incorporate `if` and `for loop` logic. (Angular uses `*ngIf` and `*ngFor` syntax for that)
+- directly bind variable values from `components` into the `template`/`html`! (E.g. "`<p>{{title}}</p>`". In this case, the variable `title` is defined in the `js` file containing the `component` class).
+- ... and so much more! (`Pipes`, `Directives` etc)
+
+## Recap on Including `components` into the application!
+Alright so lets say we have created a few different components, maybe a header?
+```typescript
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+```
+or maybe even a footer?
+```typescript
+@Component({
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css']
+})
+```
+So in the `template`of the main `component` `AppComponent`, we can have something like
+```html
+<app-header></app-header>
+<p>Hello World</p>
+<app-footer></app-footer>
+```
+
+And that's how we include `components` that we have created! Simple!
+
+## What about child `components`?? How do I pass values from Parent to child `components`?? And Vice-versa??
+This [link](https://angular.io/guide/component-interaction) is actually pretty good for that.
+
+---
+You are not asking but...
+## What the heck are `Directives`??
+*Directives are classes that add additional behavior to elements in your Angular applications - Angular*
+
+Well we are already familiar with one type of `Directive`! `Components` are a sub-type of `Directives`! They are defined by a class with a `@Component` decorator. They are `directives` with a `template`!
+
+### Another type of `directives` are [`Attribute directives`](https://angular.io/guide/built-in-directives#built-in-attribute-directives)
+Ok. What the heck are those?? Well, I find it best to see examples! We will see some sample code from the 3 most common attribute directives:
+- NgClass - adds and removes a set of CSS classes.
+- NgStyle - adds and removes a set of HTML styles.
+- NgModel - adds two-way data binding to an HTML form element.
+
+Ok lets look at `NgClass`. Say our `component` has a boolean variable `isSpecial`. And say, I want the `template` to have a div with dynamic CSS class. Meaning to say, depending on the value of `isSpecial`, the CSS class will vary!
+```html
+<div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
+```
+Pretty cool eh? I neat way to dynamically assign CSS classes with expressions! You can also use [methods](https://angular.io/guide/built-in-directives#using-ngclass-with-a-method)!
+
+Now let's look at `NgStyle`.
