@@ -5,7 +5,7 @@
 
 `AngularJS`
 - https://www.youtube.com/watch?v=3dHNOWTI7H8
-- https://angular.io/guide/built-in-directives#setting-inline-styles-with-ngstyle
+- https://angular.io/guide/built-in-directives#built-in-structural-directives
 
 `Express JS`
 - https://www.youtube.com/watch?v=yXEesONd_54&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=7

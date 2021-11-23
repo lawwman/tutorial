@@ -18,6 +18,7 @@ What you will notice is that Angular integrates the `Angular CLI Tool` into the 
 - `ng new angular-tut` (creates new angular project with folder name `angular-tut`)
 - `ng serve`
 - `ng generate component heroes` (creates new folder containing `.ts`, `.html`, `.css` files required for the `heroes` component)
+- `ng generate directive <directive_name>`
 
 ## What you get running `ng new <project_name>` (The Angular CLI command you use when starting new project)
 ```
@@ -206,10 +207,74 @@ Ok. What the heck are those?? Well, I find it best to see examples! We will see 
 - NgStyle - adds and removes a set of HTML styles.
 - NgModel - adds two-way data binding to an HTML form element.
 
-Ok lets look at `NgClass`. Say our `component` has a boolean variable `isSpecial`. And say, I want the `template` to have a div with dynamic CSS class. Meaning to say, depending on the value of `isSpecial`, the CSS class will vary!
+Ok lets look at `NgClass`. Say our `component` has a boolean variable `isSpecial`. I want the `template` to have a div with dynamic CSS class. Meaning to say, depending on the value of `isSpecial`, the CSS class will vary!
 ```html
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 ```
-Pretty cool eh? I neat way to dynamically assign CSS classes with expressions! You can also use [methods](https://angular.io/guide/built-in-directives#using-ngclass-with-a-method)!
+This is a neat way to dynamically assign CSS classes with expressions! You can also use [methods](https://angular.io/guide/built-in-directives#using-ngclass-with-a-method)!
 
 Now let's look at `NgStyle`.
+```html
+<div [ngStyle]="currentStyles">
+  This div is italic, normal weight, and extra large (24px).
+</div>
+```
+So where is `CurrentStyles` from? From the `component` itself!
+```typescript
+setCurrentStyles() { // within the component class!
+  // CSS styles: set per current state of component properties
+  this.currentStyles = {
+    'font-style':  this.canSave      ? 'italic' : 'normal',
+    'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
+    'font-size':   this.isSpecial    ? '24px'   : '12px'
+  };
+}
+```
+
+Lastly, we have `NgModel`. This is a special one! It requires importing another `NgModule` named `FormsModule`.
+
+`src/app/app.module.ts`
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // <- Import Forms Module here!
+import { AppComponent } from './app.component';
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule // <--- import into the NgModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+Remember that Angular `modules` provide the compilation context! `NgModel` is a directive that is provided by the `FormsModule` module. So please remember to update the current module you are working on to let it know about this import!
+
+Lastly, include `NgModel` into the component's template.
+```html
+<label for="example-ngModel">[(ngModel)]:</label>
+<input [(ngModel)]="currentItem.name" id="example-ngModel">
+```
+For more info, click [here](https://angular.io/api/forms/NgModel#description)
+
+**Wait a minute**... Those aren't classes!! Did I lie to you?? The above description said that `Directives are classes that add additional behavior...`. What the heck? Well it is because those seen above are **built-in** attribute directives! You do not have to write a class for them. It's available out of the box! Ah yes, if there are built-in directives, there are custom ones too! You can write your own [attribute directives](https://angular.io/guide/attribute-directives) with the use of classes!
+
+### Structural Directives!
+For the built-in structural directives, you can use them straight out of the box within the `template` files.
+
+Quick example, `NgIf`. Imagine if you could have an if-block to determine whether to render html elements **within** `.html` file itself. Yea that's what it does.
+```html
+<app-item-detail *ngIf="isActive" [item]="item"></app-item-detail>
+```
+And yes, `isActive` is just a variable within the component class in the `.ts` file.
+
+Now, imagine if we could have for-loop logic within `html` itself. Surprise surprise. `NgFor`.
+
+```html
+<div *ngFor="let item of items">{{item.name}}</div>
+```
+
+Quite self explanatory, for more click [here](https://angular.io/guide/built-in-directives#built-in-structural-directives).
+
