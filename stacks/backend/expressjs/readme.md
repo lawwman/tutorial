@@ -1,10 +1,13 @@
-# Learning Express
+# Basic Routing, Middleware and View Engine
 
-## Good [youtube tutorial](https://www.youtube.com/watch?v=Lr9WUkeYSA8&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=6)
 
-## [Main site](https://expressjs.com/)
-- Disappointing, I learnt better from youtube videos than the main site...
+## Some links:
+- A good [youtube tutorial](https://www.youtube.com/watch?v=Lr9WUkeYSA8&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=6). Recommended!
+- [Main site](https://expressjs.com/) Disappointing, I learnt better from youtube videos than the main site...
 
+---
+
+## Basic Express code snippet:
 ```javascript
 const express = require('express')
 const app = express()
@@ -16,38 +19,45 @@ app.get('/', function (req, res) {
 app.listen(3000)
 ```
 
-## Routing
-`app.get(), app.post(), app.put(), app.delete()`.
+---
 
+## Routing
 Express works in top down manner.
 ```javascript
-app.get('/', (req, res) => { res.send('Welcome to index.html') }); // matches on root path
+app.get('/', (req, res) => { res.send('Welcome to index.html') }); // GET request matches root path
 
-app.get('/about', (req, res) => { res.send('Welcome to about page') }); // matches with /about endpoint
+app.get('/about', (req, res) => { res.send('Welcome to about page') }); // GET request matches /about path
 
-app.use((req, res) => { res.status(404).send('This is the 404 page') }); // This will match any endpoint.
+app.use((req, res) => { res.status(404).send('This is the 404 page') }); // Any METHOD, any path with match
 ```
-*if `app.use()` is called first, then app.get('/') and app.get('/about') wont be called.*
+> *if `app.use()` is called first, then app.get('/') and app.get('/about') wont be called as it returns the response with `res.send()`*
 
-My thoughts: *Express is all about routing the URI to the right callback / handler function.*
+---
 
-## Middleware
+## [Middleware](https://expressjs.com/en/guide/using-middleware.html)
+*Handling http requests comes down to `app.METHOD(PATH, HANDLER)`.Middleware functions are the `HANDLER()` functions, that have access to the `request object (req)`, the `response object (res)`, and the `next function` in the application’s request-response cycle. E.g. `app.get('/', function(req, res, next) {console.log("I'm a middleware function")})`*
 
-What the hell is middleware? *Handling http requests comes down to `app.METHOD(PATH, HANDLER)`. Middleware functions are the `HANDLER()` functions, that have access to the `request object (req)`, the `response object (res)`, and the `next function` in the application’s request-response cycle. E.g. `app.get('/', function(req, res, next) {console.log("I'm a middleware function")})`*
-
-My feeling: *When you code in Express, you are adding layers of middleware functions on top of each other. Each middleware function can call `next()` and pass the request on to the next middleware, which allows for flexibility! How? You could have 3rd party middleware, which helps speed up development really quickly.*
 
 ```javascript
-var myLogger = function (req, res, next) { // This is a valid middleware function! Because it expects to receive request, response object and next function.
-  console.log('LOGGED');
+app.use((req, res, next) => {
+  console.log(`I'm in the first middleware! About to call next()!`);
   next();
-}
+});
 
-app.use(myLogger); // All middleware functions after this line will be called AFTER `myLogger`
+app.use((req, res, next) => {
+  console.log(`I'm in the second middleware! About to call next()!`);
+  next();
+});
+
+app.get('/', (req, res) => {
+  console.log(`I have been through the 2 middlewares above me! Express is top-down!`);
+  res.send('Welcome to index.html');
+});
 ```
 
 Following the above example, you could simply chain lots of `app.use()` one after the other till you eventually return the response object back to the client.
 
+---
 
 ## View Engine
 I didn't find the [main site's](https://expressjs.com/en/guide/using-template-engines.html) definition very helpful :(

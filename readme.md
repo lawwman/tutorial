@@ -3,16 +3,15 @@
 `ReactJS`
 - https://www.youtube.com/watch?v=Z5iWr6Srsj8 React with TS
 
-`AngularJS`
-- https://www.youtube.com/watch?v=3dHNOWTI7H8
-- https://angular.io/guide/built-in-directives#built-in-structural-directives
 
 `Express JS`
-- https://www.youtube.com/watch?v=yXEesONd_54&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=7
-- https://expressjs.com/en/guide/routing.html
-- https://expressjs.com/en/guide/writing-middleware.html
-- https://expressjs.com/en/starter/static-files.html
-- then update the readme.md in `/expressjs`
 - https://zellwk.com/blog/async-await-express/
+- https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
 
-> Gotta read up!
+---
+
+## Paused reading/watch list:
+`AngularJS`
+- https://www.youtube.com/watch?v=3dHNOWTI7H8 Stopped at 30:25. Component Input Data.
+- I have not covered lifecycle events for AngularJS. One day I should revisit this
+- Should talk about basic routing as well...

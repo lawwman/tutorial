@@ -82,6 +82,6 @@ An example of a `source` is `location.search`, which is the URL. If the victim's
 
 
 ### My guesses on the differences... Not 100% on this
-I would say the slight differences between Stored / Reflective vs DOM is that Stored / Reflective XSS does not have to have the malicious script enter the DOM? It could just be executed?
+I would say the slight differences between `Stored / Reflective` vs `DOM` is that `Stored / Reflective` XSS does not have to have the malicious script enter the `DOM`? It could just be executed?
 
-Another difference I feel is that a purely DOM based XSS does not involve a HTTP request? It should be purely client side. Whereas, for a reflective XSS, the attack comes from the vulnerable site's http response that reflects the attack from the malicious URL link.
+Another difference I feel is that a purely DOM based XSS does not involve a HTTP request? It should be purely client side. Whereas, for a reflective XSS, the attack comes from the vulnerable site's http response that `reflects` the attack from the malicious URL link. What does it mean to `reflect`? The malicious request has to hit the server and be bounced or reflected back to the client.
