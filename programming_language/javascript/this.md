@@ -1,6 +1,6 @@
 # This
 
-reads:
+## Sources:
 - [developer mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - [w3schools](https://www.w3schools.com/js/js_this.asp)
 
@@ -36,7 +36,7 @@ obj.someMethod(); // Returns 'a'
 `this` is set as the new object being created. Follow the link above to learn more.
 
 ## Class Context
-Just like with regular functions, the value of this within methods depends on how they are called. Sometimes it is useful to override this behavior so that this within classes always refers to the class instance. To achieve this, bind the class methods in the constructor:
+In the class context, `this` refers to the class object. However, note that in javascript, class methods are unbound by default. So if you pass the method around, `this` will be undefined. Use `.bind()` to make sure that behaviour is expected.
 
 ```javascript
 class Car {

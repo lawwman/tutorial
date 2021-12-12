@@ -21,7 +21,7 @@ app.all('*', loadUser)
 
 ## [app.use([path], callback [, callback...])](https://expressjs.com/en/4x/api.html#app.use)
 
-Matches every request. [.all vs .use](https://bambielli.com/til/2016-12-27-app-use-app-all/)
+Matches every request. [.all vs .use](https://bambielli.com/til/2016-12-27-app-use-app-all/) -> This article is not very enlightening.
 
 
 ## app.route()
