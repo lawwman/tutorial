@@ -1,6 +1,7 @@
 ## Current reading/watch list:
 
-- https://www.newline.co/@dmitryrogozhny/how-to-start-new-react-application-with-create-react-app-and-typescript--4298e606
-- https://github.com/typescript-cheatsheets/react#reacttypescript-cheatsheets
+- https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html.
+  - make sure you read up on modules first before touching this.
+  - update programming_language/typescript/ once you done.
 
 ## Paused reading/watch list:
