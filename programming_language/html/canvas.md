@@ -12,6 +12,6 @@ The drawings rendered by the canvas will be stretched 5x. For pixelated drawings
 https://stackoverflow.com/questions/7615009/disable-interpolation-when-scaling-a-canvas <- `image-rendering: pixelated` as a css attribute should solve it.
 
 
-- Talk about the 0.5 0.5 trick
+## Why you should draw on the 0.5!! WAH!
+http://diveintohtml5.info/canvas.html#pixel-madness
 
-Good read: http://diveintohtml5.info/canvas.html#pixel-madness
