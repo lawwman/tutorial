@@ -19,17 +19,22 @@ from fraud...`
 ## 2. Transactions
 `We define an electronic coin as a chain of digital signatures.`
 
-*Basically, a chain of who has owned this coin!*
+*Basically, an ordered list of owners (represented by signatures)*
 
 Lets say I have a transaction between a receiver and a giver involving an `electronic coin`. What will that transaction look like?
 
-transaction signature = signed( ( `Receiver Public Key` + (hash of previous transaction) ), `Giver Private Key` ) \
-transaction = `Receiver Public Key` + (hash of previous transaction) + signature
+- transaction signature = signed( hash( `Receiver Public Key` + `hash of previous transaction` ), `Giver Private Key` )
+- transaction = `Receiver Public Key` + (hash of previous transaction) + signature
 
 *digitally signed via publickey-privatekey pair*
 
 Anyone can use the Giver's public key to verify that he did intend to pay the Receiver. How? Because the signature contains Receiver's key. If the signature is verified, only the Giver could have signed it (Assuming the Giver takes good care of his secrets...)
 
+Above system is flawed. The Giver could use his private key again to sign the same `hash of previous transaction` away to another receiver.
+
+How do we resolve this without a single organisation managing all transactions?
+- Transactions must be publicly announced. Anyone can look into the ledger.
+- we need a system for participants to agree on a single history of the order in which they were received. The receiver needs proof that at the time of each transaction, the majority of nodes agreed it was the first received.
 
 ## 3. Timestamp Server (No comments)
 No comments

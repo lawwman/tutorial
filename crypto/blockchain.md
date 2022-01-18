@@ -1,4 +1,4 @@
 # Learning about Blockchain
 
-The best video I found so far: https://www.youtube.com/watch?v=_160oMzblY8 \
-The second best: https://www.youtube.com/watch?v=bBC-nXj3Ng4
+- [Blockchain 101 - A Visual Demo](https://www.youtube.com/watch?v=_160oMzblY8)
+- [3Blue1Brown Explanation](https://www.youtube.com/watch?v=bBC-nXj3Ng4)

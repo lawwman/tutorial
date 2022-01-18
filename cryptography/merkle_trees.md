@@ -11,6 +11,12 @@ An `inverse image` or `preimage` is just the reverse. Taking the above example, 
 
 What is the preimage of a hashed value? A set of values that when hashed, produce the same results.
 
+
+## Preimage resistance!
+A cryptographic function should resist attacks on preimage. What kind of resistance do we have?
+- preimage resistance: for essentially all pre-specified outputs, it is computationally infeasible to find any input that hashes to that output; i.e., given y, it is difficult to find an x such that h(x) = y
+- second-preimage resistance: for a specified input, it is computationally infeasible to find another input which produces the same output; i.e., given x, it is difficult to find a second preimage x′ ≠ x such that h(x) = h(x′).
+
 ## What is a preimage attack?
 [Wiki's definition](https://en.wikipedia.org/wiki/Preimage_attack#Restricted_preimage_space_attacks)
 
