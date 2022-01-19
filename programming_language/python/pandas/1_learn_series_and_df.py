@@ -1,42 +1,5 @@
 import pandas as pd
 
-"""
-Series - 1D labelled array, hold any data type. The labels are referred to as index
-https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
-
-Dataframe = 2D labeled data struct (like a spreadsheet or sql table). Can also think of it as a dict of series
-https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html
-"""
-
-def create_series():
-    return pd.Series(['a', 'b', 'c', 'd'])  # 'a' is labelled by index 0, 'b' is labelled by index 1 etc
-    """
-    0    a
-    1    b
-    2    c
-    3    d
-    dtype: object
-    """
-    # pd.Series({0: 'a', 1: 'b', 2: 'c', 3: 'd'}) works too.
-
-
-def series_tricks():
-    s = create_series()
-    # Series is dict-like (dict-like ways of accessing values with 'keys' work too)
-    print(s3['a'])  # a
-    print(s3.get('a'))  # a
-    print('a' in s3)  # True
-
-
-def create_df():
-    return pd.DataFrame(
-        {
-            "col1": [1, 2, 3],
-            "col2": pd.Series([4, 5, 6])
-        }
-    )
-
-
 def df_attributes():
     df = create_df()
     print(df.head())  # print up to first 5
@@ -52,4 +15,3 @@ def df_attributes():
 
     print('col1' in df)  # we can search if cols exist in the data frame
 
-df_attributes()
