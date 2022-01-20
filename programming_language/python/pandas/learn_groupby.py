@@ -1,6 +1,6 @@
 import pandas as pd
-import numpy as np
 # https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html
+# https://realpython.com/pandas-groupby/
 
 simple_df = pd.DataFrame(
     {
@@ -57,6 +57,9 @@ def simple_groupby_example():
     # We can disable this with `as_index=False`.
     df2 = df.groupby('Animal', as_index=False).mean()  # 'Animal' column is not index. their iloc position is index.
     print(df2)
+    #     Animal  Max Speed
+    # 0  Falcon      375.0
+    # 1  Parrot       25.0
 
 
 def simple_groupby_example2():
@@ -123,4 +126,12 @@ def simple_grouper_freq_example():
     # column will be used instead.
 
 
-simple_grouper_freq_example()
+df = pd.DataFrame(
+    {
+        'Movement': ['Fly', 'Fly', 'Fly', 'Fly', 'Gallop', 'Gallop'],
+        'Max Speed': [380., 370., 24., 26., 30., 15.],
+        'Min Speed': [1., 2., 3., 4., 5., 6.],
+        'Animal': ['Falcon', 'Falcon', 'Parrot', 'Parrot', 'Horse', 'Donkey'], 
+    }
+)
+print(df.groupby('Animal').sum())
