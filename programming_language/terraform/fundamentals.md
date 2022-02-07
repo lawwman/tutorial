@@ -1,5 +1,3 @@
-https://registry.terraform.io/providers/hashicorp/aws/latest/docs
-
 # Things to note
 - Terraform loads all files in current directory ending with `.tf`
 - Order does not matter in Terraform
@@ -12,14 +10,23 @@ Define Terraform settings such as
 - `required_version` (Version of Terraform CLI required)
 - `required_providers` (All the providers needed by the current module)
 
-Each Terraform module must declare which providers it requires, so that Terraform can install and use them. Provider requirements are declared in a `required_providers` block.
-
+Each Terraform module must declare which providers it requires, so that Terraform can install and use them.
 
 ### What are Providers?
-Refer to: https://www.terraform.io/docs/language/providers/index.html
-Essentially act as Plugins for terraform to install. They provide a set of resource types and/or data sources that Terraform can manage. *Every resource type is implemented by a provider; without providers, Terraform can't manage any kind of infrastructure.*
+- https://www.terraform.io/docs/language/providers/index.html
+- AWS provider: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
-They are installed when you run `terraform init`.
+Essentially act as Plugins for terraform to install. They provide a set of resource types and/or data sources that Terraform can manage. They are installed when you run `terraform init`.
+
+> *Every resource type is implemented by a provider; without providers, Terraform can't manage any kind of infrastructure.*
+
+Information for providers can be found within:
+- Terraform block, under: `required_providers`
+- Provider block
+
+Each provider has two identifiers:
+- A unique source address, which is only used when requiring a provider (e.g. `hashicorp/aws`).
+- A local name, which is used everywhere else in a Terraform module (e.g. `aws`).
 
 ### Example of providers in Terraform Block
 ```
@@ -32,12 +39,15 @@ terraform {
     }
   }
 }
+
+# Configure the AWS Provider
+provider "aws" {
+  profile = "default"
+  region = "us-east-1"
+}
 ```
 
-For more in-depth configuration settings on the provider, refer to the Provider block.
-
-### Storing State and Locks in a shared cloud with Terraform block
-
+## Storing State and Locks in a shared cloud with Terraform bloc
 ```
 terraform {
   backend "s3" {
@@ -50,79 +60,7 @@ terraform {
 }
 ```
 
-## Provider Block
-https://www.terraform.io/docs/language/providers/index.html
-
-Each provider has two identifiers:
-- A unique source address, which is only used when requiring a provider (e.g. `hashicorp/aws`).
-- A local name, which is used everywhere else in a Terraform module (e.g. `aws`).
-
-### Example
-```
-provider "aws" {  # using local name
-  profile = "default"
-  region  = "us-west-2"
-}
-```
-
-The block allows you to provide more in depth configurations to the provider.
-
-
-
-## Resource Block
-
-
-
-
-var -> accessing variables
-
-
-E.g. of a `main.tf`
-```
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
-    }
-  }
-}
-
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-}
-
-resource "aws_instance" "example" {
-  ami           = "ami-08d70e59c07c61a3a"  # argument
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "ExampleInstance"
-  }
-}
-
-output "instance_id" {
-  description = "ID of the EC2 instance"
-  value       = aws_instance.example.id
-}
-
-output "instance_public_ip" {
-  description = "Public IP address of the EC2 instance"
-  value       = aws_instance.example.public_ip
-}
-```
-
-Commands: \
-`terraform init` \
-`terraform plan` \
-`terraform apply` \
-`terraform destroy` \
-`terraform output`  used to query values defined in output blocks, after terraform apply \
-`terraform console` used to inspect variables. Leave with `exit`
-
-file types: \
-`.tf`, `.tfvars` (does it have to be `terraform.tfvars`)
+## [Resource Block](https://www.terraform.io/language/resources)
 
 
 ## `variables.tf` vs `terraform.tfvars`
