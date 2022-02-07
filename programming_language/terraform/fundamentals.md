@@ -1,18 +1,17 @@
-# Things to note
+# [Files and Directories](https://www.terraform.io/language/files)
 - Terraform loads all files in current directory ending with `.tf`
 - Order does not matter in Terraform
 
+*Terraform evaluates all of the configuration files in a module, effectively treating the entire module as a single document. Separating various blocks into different files is purely for the convenience of readers and maintainers, and has no effect on the module's behavior.*
 
-# Blocks needed
-
-## Terraform Block
+# Terraform Block
 Define Terraform settings such as
 - `required_version` (Version of Terraform CLI required)
 - `required_providers` (All the providers needed by the current module)
 
 Each Terraform module must declare which providers it requires, so that Terraform can install and use them.
 
-### What are Providers?
+## What are Providers?
 - https://www.terraform.io/docs/language/providers/index.html
 - AWS provider: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
@@ -28,7 +27,7 @@ Each provider has two identifiers:
 - A unique source address, which is only used when requiring a provider (e.g. `hashicorp/aws`).
 - A local name, which is used everywhere else in a Terraform module (e.g. `aws`).
 
-### Example of providers in Terraform Block
+## Example of providers in Terraform Block
 ```
 terraform {
   required_version = ">= 0.14.0"  # version of terraform cli required
@@ -47,7 +46,7 @@ provider "aws" {
 }
 ```
 
-## Storing State and Locks in a shared cloud with Terraform bloc
+# Storing State and Locks in a shared cloud with Terraform bloc
 ```
 terraform {
   backend "s3" {
@@ -60,11 +59,20 @@ terraform {
 }
 ```
 
-## [Resource Block](https://www.terraform.io/language/resources)
+# [Resource Block](https://www.terraform.io/language/resources)
+```
+resource "aws_instance" "web" {
+  ami           = "ami-a1b2c3d4"
+  instance_type = "t2.micro"
+}
+```
+Consists of:
+- resource type (`aws_instance`, and provided by the...`provider`.)
+- local name (`web`)
 
 
 ## `variables.tf` vs `terraform.tfvars`
-
+https://stackoverflow.com/questions/56086286/terraform-tfvars-vs-variables-tf-difference
 `variables.tf` :
 ```
 variable "region" {
