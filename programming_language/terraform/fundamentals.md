@@ -15,11 +15,11 @@ Each Terraform module must declare which providers it requires, so that Terrafor
 - https://www.terraform.io/docs/language/providers/index.html
 - AWS provider: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
-Essentially act as Plugins for terraform to install. They provide a set of resource types and/or data sources that Terraform can manage. They are installed when you run `terraform init`.
+Providers essentially act as Plugins for terraform to install. They provide a set of `resource` types and/or `data` sources that Terraform can manage. They are installed when you run `terraform init`.
 
 > *Every resource type is implemented by a provider; without providers, Terraform can't manage any kind of infrastructure.*
 
-Information for providers can be found within:
+Information for providers can be found within `.tf` scripts under:
 - Terraform block, under: `required_providers`
 - Provider block
 
@@ -66,57 +66,30 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 }
 ```
-Consists of:
-- resource type (`aws_instance`, and provided by the...`provider`.)
-- local name (`web`)
+`"aws_instance" "web"` => `<resource_type> <local name>`
+`<resource_type>` => `<provider>_<name of resource type>`
 
+so in this example, `"aws_instance" "web"` is defining a resource from provider: `aws`, of type `instance` with local name of `web`.
 
-## `variables.tf` vs `terraform.tfvars`
-https://stackoverflow.com/questions/56086286/terraform-tfvars-vs-variables-tf-difference
-`variables.tf` :
-```
-variable "region" {
-    default = "us-east-1"
-}
-```
-you can then reference from other `.tf` files with `var.region`.
-
-`terraform.tfvars` :  (to persist variable values?) can be used to populate `variable` blocks. useful if default value not there
-```
-region="us-east-1"
-```
-
-### Resource block
-E.g.
-`resource "random_pet" "name" {}`. Syntax: `resource "<resource_type>" "<name>"`. Type and name are combined into a resource identifier in the format `resource_type.resource_name`. E.g. `random_pet.name` \
-
-`<resource_type>` begins with `provider name` followed by underscore. In this case, `random` is the provider.
-
-Resources have: \
+Resources have:
 - Arguments - can be `required` or `optional`. Configure the resource
 - Attributes - values exposed by resource. 
 - Meta-arguments - change resource_type behavior. e.g. `count`, `for_each`
 
+## [`variables.tf` vs `terraform.tfvars`](https://stackoverflow.com/questions/56086286/terraform-tfvars-vs-variables-tf-difference)
+*The distinction between these is of declaration vs. assignment.*
 
-## Variable block
-3 optional arguments: `description`, `type`, `default`, `validation`, `sensitive`.
-
-#### Variable types
-(string, number, bool) - simple variable
-(list, map, set) - collection variable
-
-e.g. ["first string", "second string"] - list(string)
-
-#### string interpolation
-${} within "" can be used to insert variable values into string.
-
-#### variable validation
-Validation argument into Variable block. e.g.
+variable blocks (which can actually appear in any .tf file, but are in variables.tf by convention) declare that a variable exists:
 ```
-validation {
-    condition     = length(var.resource_tags["project"]) <= 16 && length(regexall("/[^a-zA-Z0-9-]/", var.resource_tags["project"])) == 0
-    error_message = "The project tag must be no more than 16 characters, and only contain letters, numbers, and hyphens."
-    }
+variable "region" { # in variables.tf
+    default = "us-east-1"
+}
+```
+This tells Terraform that this module accepts an input variable called `region`. you can then reference from other `.tf` files with `var.region`.
+
+creating a `terraform.tfvars` is one of the few ways to populate `variable` blocks. useful if default value not there.
+```
+region="us-east-1"
 ```
 
 ## Locals
@@ -129,31 +102,6 @@ locals {
 }
 ```
 reference with `local.name_suffix`.
-
-
-## Modules
-a directory with 1 or more `.tf` files is a module. Where you run the terraform command from, is the root module.
-
-Can reference either local (build your own) or remote modules (lookup terraform registry).
-
-```
-module "module name" {
-    source = "terraform-aws-modules/ec2-instance/aws"  # remote source path
-}
-```
-
-When using new (remote | local) module for first time, run `terraform init` or `terraform get` to install. They are installed in `.terraform/modules` directory.
-
-Module blocks do not need a `provider` block. They will inherit it from parent.
-
-
-## Local files Terraform creates for you
-- `terraform.tfstate` and `terraform.tfstate.backup`: These files contain your Terraform state, and are how Terraform keeps track of the relationship between your configuration and the infrastructure provisioned by it.
-
-- `.terraform`: This directory contains the modules and plugins used to provision your infrastructure. These files are specific to a specific instance of Terraform when provisioning infrastructure, not the configuration of the infrastructure defined in .tf files.
-
-- `*.tfvars`: Since module input variables are set via arguments to the module block in your configuration, you don't need to distribute any *.tfvars files with your module, unless you are also using it as a standalone Terraform configuration.
-
 
 ## Data sources
 https://learn.hashicorp.com/tutorials/terraform/data-sources?in=terraform/configuration-language
@@ -169,10 +117,10 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/a
 Maybe can think of it as a variable block that you request for from some remote data source.
 
 
-## Resource Dependency
+# Resource Dependency
 implicit vs explicit dependency. 
 
-### Implicit
+## Implicit
 Based on resource attributes, terraform can infer by itself dependencies.
 ```
 resource "aws_instance" "example_a" {
@@ -187,7 +135,7 @@ resource "aws_eip" "ip" {  # elastic ip that depends on example_a instance being
 ```
 `instance = aws_instance.example_a.id` from this line refering to "example_a", knows to create `example_a` first and creates the infrastructure in the correct order.
 
-### Explicit
+## Explicit
 For dependencies that are not so visible, we can use the `depends_on` argument.
 
 For e.g. the EC2 instance requires a specific S3 bucket, but this is only visible in code. We then use `depends_on` to deploy it safely in order.
