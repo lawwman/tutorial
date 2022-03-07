@@ -134,4 +134,7 @@ df = pd.DataFrame(
         'Animal': ['Falcon', 'Falcon', 'Parrot', 'Parrot', 'Horse', 'Donkey'], 
     }
 )
-print(df.groupby('Animal').sum())
+s = pd.Series(['a', 'b', 'c', 'd'], index=['e', 'f', 'g', 'h'])  # series from list. Default index values.
+# print(s)
+print(s.loc[['e', 'g']])
+# print(s['e'])

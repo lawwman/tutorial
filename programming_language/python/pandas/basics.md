@@ -6,8 +6,8 @@ Takeaways from reading pandas docs: https://pandas.pydata.org/pandas-docs/stable
 
 
 As seen from above:
-- a series is just a table column. The values (blue box) is labelled with `index` (green box).
-- a dataframe is just the table itself. The values (blue box) is labelled with `columns` (green box). **Note that for a DF, the value is a series.**
+- a series is a column. Contains a list of values (blue box) that are labelled with an `index` (green box).
+- a dataframe is the table itself. As seen from the red rectangle, dataframe contains a list of series (blue columns) that are labelled with `columns` (green box).
 
 A series and dataframe are both dict-like
 - a dict can select values by key. It can check for existance of keys.
@@ -76,5 +76,3 @@ df['one']  # df.get('one') works too
 # remember that df is just composed of many series. df['one'] is just a series! you can then use it like a normal series and do whatever index slicing you want
 df['one'][0:2]  # works well :)
 ```
-
-For learning about [Indexing / Selecting](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html), I find the documentation to be good enough. It is an easy read if the above basic data structures are understood well.
