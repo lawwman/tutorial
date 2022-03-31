@@ -40,7 +40,12 @@ Unless of course... your browser remembers what the original Server B's cert loo
 
 
 ## Cons?
-Well... SSL pinning essentially means that you hardcode the hash of the cert in your application code. So if your server's SSL cert expires... You have to update both the cert and the application! It is really inconvenient.
+There are 2 ways to pin - Public key pinning and Certificate pinning (hash of the cert).
+
+SSL pinning essentially means that you hardcode the public key or hash of the cert into the application code.
+- Cons of certificate pinning: If your cert expires and you purchase a new one, you need to update your application code :( inconvenient
+
+If you update your cert properly and ensure the same public key is used, then public key pinning is the better approach.
 
 ## Useful for?
 Well say you are a mobile developer. Your mobile app only ever has to communicate with your backend system. Well SSL pinning suddenly makes a lot of sense if you want to be secure. Same goes for game development!
