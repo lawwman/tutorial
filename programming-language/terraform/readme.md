@@ -1,0 +1,1 @@
+https://medium.com/@pavloosadchyi/terraform-patterns-and-tricks-i-use-every-day-117861531173
