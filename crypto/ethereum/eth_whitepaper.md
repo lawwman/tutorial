@@ -25,8 +25,8 @@ In BTC, the `transaction` contains >= 1 inputs, with each input containing a ref
 
 In BTC, the `state transition function`, e.g. `APPLY(S,TX) -> S'` can be defined as:
 1. for each input in TX:
-  - If referenced UTXO is not in S, return an error.
-  - If signature does not match the owner of the UTXO, return an error.
+    1. If referenced UTXO is not in S, return an error.
+    2. If signature does not match the owner of the UTXO, return an error.
 2. If the sum of the denominations of all input UTXO is less than the sum of the denominations of all output UTXO, return an error.
 3. Return S with all input UTXO removed and all output UTXO added.
 
@@ -77,3 +77,39 @@ Limitations of BTC Scripting:
 - `LACK OF STATE`: UTXO can either be spent or unspent; there is no opportunity for multi-stage contracts or scripts which keep any other internal state beyond that. This makes it hard to make multi-stage options contracts, decentralized exchange offers or two-stage cryptographic commitment protocols (necessary for secure computational bounties). It also means that UTXO can only be used to build simple, one-off contracts and not more complex "stateful" contracts such as decentralized organizations, and makes meta-protocols difficult to implement. Binary state combined with value-blindness also mean that another important application, withdrawal limits, is impossible.
 
 Don't know too much about it... except that it sucks.
+
+# Ethereum
+intent:
+- protocol for building decentralised applications
+- emphasis on situations requiring:
+  - rapid development time
+  - security for small and rarely used applications
+  - ability of different applications to very efficiently interact
+
+it is a blockchain with a built-in `Turing-complete programming language`, allowing anyone to write `smart contracts` and `decentralized applications` where they can create their own arbitrary rules for ownership, transaction formats and state transition functions.
+
+## Ethereum Accounts
+In Ethereum, the state is made up of objects called "accounts".
+
+- An `account` has a 20-byte address.
+- `state transitions` are direct transfers of value and information between `accounts`.
+
+An Ethereum `account` contains four fields:
+- The `nonce`, a counter used to make sure each transaction can only be processed once
+- The account's current `ether balance`
+- The account's `contract code`, if present
+- The account's `storage` (empty by default)
+
+`Ether` is the main internal crypto-fuel of Ethereum, and is used to pay transaction fees.
+
+There are two types of accounts:
+- `externally owned accounts`: controlled by private keys
+  - has no code
+  - one can send messages from an externally owned account by creating and signing a transaction
+- `contract accounts`: controlled by their contract code
+  - every time the contract account receives a message its code activates, allowing it to read and write to internal storage and send other messages or create contracts in turn.
+
+
+Note that "contracts" in Ethereum should not be seen as something that should be "fulfilled" or "complied with"; rather, they are more like "autonomous agents" that live inside of the Ethereum execution environment, always executing a specific piece of code when "poked" by a message or transaction, and having direct control over their own ether balance and their own key/value store to keep track of persistent variables.
+
+## Messages and Transactions
