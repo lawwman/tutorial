@@ -57,3 +57,34 @@ example, for setTimeout of 0 ms, why is it not called immediately? It is not add
 # ES6 promises
 when javascript uses `fetch` (web browser feature, called a facade function?), it returns a promise. 
 
+# prototype chain
+Object.create()
+
+`__proto__` property is added. look this up.
+
+Object prototype
+
+read up what `new` is doing for us. It automates some stuff
+
+```javascript
+class UserCreator {
+  constructor(name, score) {
+    this.name = name
+    this.score = score
+  }
+  increment() { this.score++ }
+}
+const tom = new UserCreator('tom', 5)
+
+// syntactic sugar for
+
+function userCreator(name, score) {  // constructor
+  this.name = name
+  this.score = score
+}
+
+userCreator.prototype.increment = function() { this.score++ } // class method
+
+const tom = new userCreator('tom', 5)
+tom.increment()
+```
