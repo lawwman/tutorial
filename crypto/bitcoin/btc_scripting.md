@@ -9,8 +9,8 @@
 
 2 script components in a UTXO transaction: unlocking and locking script.
 
-- `scriptSig`: contains required info (signature, sometimes public key) to `unlock` the UTXO. The `unlocking` script.
-- `scriptPubkey`: used to verify if given `scriptSig` is valid. It keeps the UTXO locked if condition is not met. The `locking` script.
+- `scriptSig`    / `unlocking` script : contains required info (signature, sometimes public key) to `unlock` the UTXO.
+- `scriptPubkey` / `locking`   script : used to verify if given `scriptSig` is valid. It keeps the UTXO locked if condition is not met.
 
 ## Pay to Pubkey (P2PK)
 - funds are locked to a `public key`
