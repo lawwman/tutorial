@@ -77,8 +77,8 @@ Don't know too much about it... except that it sucks.
 
 # Ethereum
 intent:
-- protocol for building decentralised applications
-- emphasis on situations requiring:
+- create a protocol for building decentralised applications
+- useful for situations requiring:
   - rapid development time
   - security for small and rarely used applications
   - ability of different applications to very efficiently interact
@@ -86,18 +86,11 @@ intent:
 it is a blockchain with a built-in `Turing-complete programming language`, allowing anyone to write `smart contracts` and `decentralized applications` where they can create their own arbitrary rules for ownership, transaction formats and state transition functions.
 
 ## Ethereum Accounts
-In Ethereum, the state is made up of objects called "accounts".
-
-- An `account` has a 20-byte address.
-- `state transitions` are direct transfers of value and information between `accounts`.
-
-An Ethereum `account` contains four fields:
+In Ethereum, the state is made up of objects called "accounts", each with 20-byte address. It contains:
 - The `nonce`, a counter used to make sure each transaction can only be processed once
 - The account's current `ether balance`
 - The account's `contract code`, if present
 - The account's `storage` (empty by default)
-
-`Ether` is the main internal crypto-fuel of Ethereum, and is used to pay transaction fees.
 
 There are two types of accounts:
 - `externally owned accounts`: controlled by private keys
@@ -106,14 +99,13 @@ There are two types of accounts:
 - `contract accounts`: controlled by their contract code
   - every time the contract account receives a message its code activates, allowing it to read and write to internal storage and send other messages or create contracts in turn.
 
+`state transitions` are direct transfers of value and information between `accounts`. `Ether` is the main internal crypto-fuel of Ethereum, and is used to pay transaction fees.
 
 Note that "contracts" in Ethereum should not be seen as something that should be "fulfilled" or "complied with"; rather, they are more like "autonomous agents" that live inside of the Ethereum execution environment, always executing a specific piece of code when "poked" by a message or transaction, and having direct control over their own ether balance and their own key/value store to keep track of persistent variables.
 
 ## Messages and Transactions
 
-`transaction`: signed data package that stores a message to be sent from an `externally owned account`.
-
-transactions contain:
+`transaction`: signed data package that stores a message to be sent from an `externally owned account`. Contains:
 - recipient of message
 - signature identifying the sender
 - amount of ether to transfer from sender -> recipient
@@ -183,3 +175,63 @@ The main difference between Ethereum and Bitcoin with regard to the blockchain a
 The approach may seem highly inefficient at first glance, because it needs to store the entire state with each block, but in reality efficiency should be comparable to that of Bitcoin. The reason is that the state is stored in the tree structure, and after every block only a small part of the tree needs to be changed. Thus, in general, between two adjacent blocks the vast majority of the tree should be the same, and therefore the data can be stored once and referenced twice using pointers (ie. hashes of subtrees). A special kind of tree known as a "Patricia tree" is used to accomplish this, including a modification to the Merkle tree concept that allows for nodes to be inserted and deleted, and not just changed, efficiently. Additionally, because all of the state information is part of the last block, there is no need to store the entire blockchain history - a strategy which, if it could be applied to Bitcoin, can be calculated to provide 5-20x savings in space.
 
 A commonly asked question is "where" contract code is executed, in terms of physical hardware. This has a simple answer: the process of executing contract code is part of the definition of the state transition function, which is part of the block validation algorithm, so if a transaction is added into block B the code execution spawned by that transaction will be executed by all nodes, now and in the future, that download and validate block B
+
+# Applications
+
+## Token systems
+tokens can represent:
+- USD, gold
+- company stocks
+- smart property
+- coupons
+- even point systems used to incentivise
+
+Token systems are easy to implement in Ethereum since ETH or tokens are just... units.
+
+Basic serpent code to implement `token system`
+```
+def send(to, value):
+    if self.storage[msg.sender] >= value:
+        self.storage[msg.sender] = self.storage[msg.sender] - value
+        self.storage[to] = self.storage[to] + value
+```
+
+*Theoretically, Ethereum-based token systems acting as sub-currencies can potentially include another important feature that on-chain Bitcoin-based meta-currencies lack*: the ability to pay transaction fees directly in that currency. The way this would be implemented is that the contract would maintain an ether balance with which it would refund ether used to pay fees to the sender, and it would refill this balance by collecting the internal currency units that it takes in fees and reselling them in a constant running auction. Users would thus need to "activate" their accounts with ether, but once the ether is there it would be reusable because the contract would refund it each time.
+
+## Financial derivatives and Stable-Value Currencies
+smart contracts can be coded to hold ether and hedge against ether's volatility (w.r.t to USD). The contract would need to know the value of ETH/USD, probably provided by another party `data feed contract`.
+
+The contract could look like this:
+1. Wait for party A to input 1000 ether.
+2. Wait for party B to input 1000 ether.
+3. Record the USD value of 1000 ether, calculated by querying the `data feed contract`, in storage, say this is $x.
+After 30 days, allow A or B to "reactivate" the contract in order to send $x worth of ether (calculated by querying the `data feed contract` again to get the new price) to A and the rest to B.
+
+### Problem
+Although many users may want the security and convenience of dealing with cryptographic assets, they many not wish to face that prospect of losing 23% of the value of their funds in a single day.
+
+### Common solution...
+Up until now, the most commonly proposed solution has been issuer-backed assets; the idea is that an issuer creates a sub-currency in which they have the right to issue and revoke units, and provide one unit of the currency to anyone who provides them (offline) with one unit of a specified underlying asset (eg. gold, USD). The issuer then promises to provide one unit of the underlying asset to anyone who sends back one unit of the crypto-asset. This mechanism allows any non-cryptographic asset to be "uplifted" into a cryptographic asset, provided that the issuer can be trusted.
+
+In practice, however, issuers are not always trustworthy, and in some cases the banking infrastructure is too weak, or too hostile, for such services to exist. Financial derivatives provide an alternative. Here, instead of a single issuer providing the funds to back up an asset, a decentralized market of speculators, betting that the price of a cryptographic reference asset (eg. ETH) will go up, plays that role. Unlike issuers, speculators have no option to default on their side of the bargain because the hedging contract holds their funds in escrow. Note that this approach is not fully decentralized, because a trusted source is still needed to provide the price ticker, although arguably even still this is a massive improvement in terms of reducing infrastructure requirements (unlike being an issuer, issuing a price feed requires no licenses and can likely be categorized as free speech) and reducing the potential for fraud.
+
+## Identity and Reputation Systems
+Blockchain to provide a name registration system, where users can register their names in a public database alongside other data. For e.g. a DNS system.
+
+## Decentralized file storage
+
+### current solution and problems
+Over the past few years, there have emerged a number of popular online file storage startups, the most prominent being Dropbox, seeking to allow users to upload a backup of their hard drive and have the service store the backup and allow the user to access it in exchange for a monthly fee. However, at this point the file storage market is at times relatively inefficient; a cursory look at various existing solutions shows that, particularly at the "uncanny valley" 20-200 GB level at which neither free quotas nor enterprise-level discounts kick in, monthly prices for mainstream file storage costs are such that you are paying for more than the cost of the entire hard drive in a single month.
+
+### application of ETH
+Ethereum contracts can allow for the development of a decentralized file storage ecosystem, where individual users can earn small quantities of money by renting out their own hard drives and unused space can be used to further drive down the costs of file storage.
+
+The key underpinning piece of such a device would be what we have termed the "decentralized Dropbox contract". This contract works as follows. First, one splits the desired data up into blocks, encrypting each block for privacy, and builds a Merkle tree out of it. One then makes a contract with the rule that, every N blocks, the contract would pick a random index in the Merkle tree (using the previous block hash, accessible from contract code, as a source of randomness), and give X ether to the first entity to supply a transaction with a simplified payment verification-like proof of ownership of the block at that particular index in the tree. When a user wants to re-download their file, they can use a micropayment channel protocol (eg. pay 1 szabo per 32 kilobytes) to recover the file; the most fee-efficient approach is for the payer not to publish the transaction until the end, instead replacing the transaction with a slightly more lucrative one with the same nonce after every 32 kilobytes.
+
+An important feature of the protocol is that, although it may seem like one is trusting many random nodes not to decide to forget the file, one can reduce that risk down to near-zero by splitting the file into many pieces via secret sharing, and watching the contracts to see each piece is still in some node's possession. If a contract is still paying out money, that provides a cryptographic proof that someone out there is still storing the file.
+
+## Others
+- Decentralized Autonomous Organizations
+- Savings wallets
+- A decentralized data feed
+- Cloud computing
