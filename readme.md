@@ -5,3 +5,5 @@
   - update programming_language/typescript/ once you done.
 
 read up on GHOST protocol https://eprint.iacr.org/2013/881.pdf
+
+learning ethereum, i probably should have started here: https://ethereum.org/en/learn/

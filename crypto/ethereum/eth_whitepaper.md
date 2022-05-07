@@ -124,10 +124,11 @@ message contains:
 - recipient of message
 - amount of ether to transfer alongside the message
 - optional data field
-- A STARTGAS value
+- A `STARTGAS` value
 
 message vs transaction:
 - message produced by `contract`. transaction produced by `externally owned account`.
+- transactions are recorded into each block in the blockchain. messages are not.
 
 A message is produced when a contract currently executing code executes the CALL `opcode`, which produces and executes a message.
 
