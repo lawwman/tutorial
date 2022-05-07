@@ -235,3 +235,7 @@ An important feature of the protocol is that, although it may seem like one is t
 - Savings wallets
 - A decentralized data feed
 - Cloud computing
+
+
+# Stop here
+Further readings are not meaningful without deeper knowledge. I think its better to cover it in another session.
