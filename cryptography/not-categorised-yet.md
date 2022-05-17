@@ -1,0 +1,7 @@
+- [uri](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier)
+- [linked data](https://www.youtube.com/watch?v=4x_xzT5eF5Q)
+- [json ld](https://www.youtube.com/watch?v=vioCbTo3C-4)
+- [rdfa basics](https://www.youtube.com/watch?v=ldl0m-5zLz4)
+- [zero knowledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
+- [DID primer](https://w3c-ccg.github.io/did-primer/)
+- [verifiable credentials primer](https://github.com/WebOfTrustInfo/rwot7-toronto/blob/master/topics-and-advance-readings/verifiable-credentials-primer.md#:~:text=The%20Verifiable%20Credentials%20ecosystem%20is,the%20Subject%20of%20a%20credential.)
