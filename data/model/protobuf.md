@@ -1,1 +1,0 @@
-https://www.adaptiv.co.nz/protobuf-what-is-it-why-you-should-care-and-when-should-you-use-it/
