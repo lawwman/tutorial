@@ -1,39 +1,40 @@
-- [youtube explanation](https://www.youtube.com/watch?v=ldl0m-5zLz4)
+- [RDF Primer](https://www.w3.org/TR/rdf11-primer/) // i have not read this yet
+- [RDF concepts](https://www.w3.org/TR/rdf11-concepts/)
 
-# RDF
-Resource Description Framework: Fancy way to say it can describe anything. It is a concept, not a syntax.
+# Resource Description Framework (RDF)
+It is a framework for representing information in the Web. The core structure is a `triple` consisting of `<subject> <predicate> <object>`. Example: "Dave likes cookies".
 
-3 main things in RDF:
-- Subject
-- Predicate
-- Object
+The `subject` and `object` are both nodes in the RDF. There can be 3 types of nodes:
+- Internationalized Resource Identifier (`IRI`)
+  - `URI` is limited to ASCII set. `IRI` builds on top of `URI`, but it can contain characters from UNICode (including chinese, japanese, korean etc)
+  - `IRIs` are globally unique identifiers
+- `literals`
+  - used for strings, numbers and dates.
+  - `subject` cannot be a literal
+  - consists of a `string`, `IRI` linking to the datatype, `language tag` if the `IRI` datatype is `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`.
+- `blank nodes`
+  - honestly im not sure
+  - not part of the RDF abstract syntax, but are entirely dependent on the concrete syntax or implementation
 
-Example: "Dave likes cookies",
-- Dave -> subject
-- likes -> predicate
-- cookies -> object
+The predicate itself is an `IRI` too.
 
-## CURI
-Compact URI. Annoying to always type out long URIs, so we take the long part and compact it to a short word.
-
-Example: `foaf:name`, would expand to `http://xmlns.com/foaf/0.1/name`.
-
-## N3
-Syntax for expressing RDF statements.
-
-According to N3 notation, the `<Subject> <Predicate> <Object>` statement is what is known as a `Triple`.
-
-For the statement: "Dave likes cookies", in N3 notation it would look like:
-```
-@prefix pref: <http://example.org/vocabulary#> .
-<#dave> <pref:likes> <#cookies> .
-```
-## RDFA
-N3 is a syntax to describe RDF to humans. RDFA is a syntax to describe RDF to machines.
-
-## Vocabulary
-Defines what triples actually mean. example of a popular vocabulary: `foaf`.
+## How RDF is organised
+- A set of `triples` is called an RDF graph.
+- An RDF dataset is a collection of RDF graphs.
 
 
-# todo
-There is a lot more to learn about RDF but I will stop here. no time.
+## RDF Vocabulary
+An RDF vocabulary is a collection of `IRIs` intended for use in RDF graphs.
+
+`IRIs` in RDF vocabulary often begin with `namespace IRI`. Some `namespace IRIs` are associated with a short name known as `namespace prefix`. For example: the `namespace IRI` http://www.w3.org/1999/02/22-rdf-syntax-ns#	 has a `namespace prefix` of `rdf`.
+
+Sometimes for readability, the `IRI` http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral can be abbreviated to `rdf:XMLLiteral`. However, note that these are not valid `IRIs`.
+
+
+## RDF syntax
+An `RDF document` is a document that encodes an RDF graph or RDF dataset in a concrete RDF syntax, such as:
+- Turtle
+- RDFA
+- JSON-LD
+- TRIG
+`RDF documents` enable the exchange of RDF graphs and RDF datasets between systems.

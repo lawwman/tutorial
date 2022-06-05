@@ -3,3 +3,5 @@
 - [verifiable credentials primer](https://www.w3.org/TR/vc-data-model/)
 
 as well as `linked-data`, `json-ld`, `rdf`.
+
+@context: https://www.w3.org/2018/credentials/v1
