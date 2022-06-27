@@ -19,6 +19,21 @@
 
 finally, the `resolver` will return the IP address to the browser.
 
+# DNS Zone
+https://www.cloudflare.com/en-gb/learning/dns/glossary/dns-zone/
+
+- A DNS zone is a portion of the DNS namespace that is managed by a specific organization or `administrator`.
+- A common mistake is to associate a DNS zone with a domain name (e.g. `google.com`) or a single DNS server.
+- A DNS zone can contain multiple subdomains and multiple zones can exist on the same server.
+  - consider `a.example.com` and `b.example.com`. They can belong in the same zone. But if `a.example.com` is managed by its own `administrator`, then they would belong in 2 separate zones.
+
+All of the information for a zone is stored in what’s called a `DNS zone file`, which is the key to understanding how a DNS zone operates.
+
+## What is a DNS zone file?
+The zone file contains mappings between domain names and IP addresses and other resources, organized in the form of text representations of [resource records](https://en.wikipedia.org/wiki/List_of_DNS_record_types) (RR).
+
+Resource records are basically DNS records. 
+
 # DNS Records
 
 ## DNS A record
