@@ -60,28 +60,32 @@ terraform {
 ```
 
 # [Resource Block](https://www.terraform.io/language/resources)
+## Syntax
 ```
 resource "aws_instance" "web" {
   ami           = "ami-a1b2c3d4"
   instance_type = "t2.micro"
 }
+
+syntax:
+resource "<provider>_<resource type>" "<local_name>" {
+  <argument1> = "some value"
+  <argument2> = "some other value"
+}
 ```
-`"aws_instance" "web"` => `<resource_type> <local name>`
-`<resource_type>` => `<provider>_<name of resource type>`
-
-so in this example, `"aws_instance" "web"` is defining a resource from provider: `aws`, of type `instance` with local name of `web`.
-
 Resources have:
 - Arguments - can be `required` or `optional`. Configure the resource
-- Attributes - values exposed by resource. 
 - Meta-arguments - change resource_type behavior. e.g. `count`, `for_each`
+- Attributes - values exposed by resource.
 
 ## [`variables.tf` vs `terraform.tfvars`](https://stackoverflow.com/questions/56086286/terraform-tfvars-vs-variables-tf-difference)
 *The distinction between these is of declaration vs. assignment.*
 
 variable blocks (which can actually appear in any .tf file, but are in variables.tf by convention) declare that a variable exists:
 ```
-variable "region" { # in variables.tf
+# in variables.tf
+
+variable "region" {
     default = "us-east-1"
 }
 ```
@@ -89,19 +93,19 @@ This tells Terraform that this module accepts an input variable called `region`.
 
 creating a `terraform.tfvars` is one of the few ways to populate `variable` blocks. useful if default value not there.
 ```
+# in terraform.tfvars
+
 region="us-east-1"
 ```
 
 ## Locals
-- You cannot reference a variable to define a variable. Thats where Locals come into play.
-- Think of it as a variable that can be assigned with a variable.
-- Users cannot override this value too.
+You cannot assign a variable by referencing another variable. Thats where `Locals` come into play.
 ```
 locals {
   name_suffix = "${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
 }
 ```
-reference with `local.name_suffix`.
+in other parts of you code, you can reference with `local.name_suffix`.
 
 ## Data sources
 https://learn.hashicorp.com/tutorials/terraform/data-sources?in=terraform/configuration-language

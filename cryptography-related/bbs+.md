@@ -52,7 +52,6 @@ Looks like a spec on making your own BBS implementation? eew. I think we need kn
 specification for linked data signature (i think this is pertaining to json-ld) using BBS+ signature algo with BLS12-381 elliptic curve based key pairs.
 
 # more links
-- https://www.evernym.com/blog/bbs-verifiable-credentials/
 - [implementation](https://github.com/mattrglobal/jsonld-signatures-bbs)
 - [another implementation](https://github.com/mattrglobal/node-bbs-signatures)
 - [another one](https://github.com/mattrglobal/bbs-signatures)
