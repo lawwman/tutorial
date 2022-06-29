@@ -1,9 +1,4 @@
-- [zero knowledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
-- [verifiable credentials primer](https://www.w3.org/TR/vc-data-model/)
 - [have not read yet](https://www.lfph.io/wp-content/uploads/2021/02/Verifiable-Credentials-Flavors-Explained.pdf)
-
-@context: https://www.w3.org/2018/credentials/v1
-
 
 # [Notes from the Evernym blog on BBS+](https://www.evernym.com/blog/bbs-verifiable-credentials/)
 
@@ -35,3 +30,17 @@ MATTR then announced BBS+ LD-proofs:
 - BBS+
 - using json-ld
 - They let go of ZKP predicates
+
+# [Notes from Evernym blog on Link secrets](https://www.evernym.com/blog/how-does-a-verifier-know-the-credential-is-yours/)
+
+A link secret is a random number that is "wrapped". This wrapping is known as a [cryptographic commitment](https://en.wikipedia.org/wiki/Commitment_scheme).
+
+A cryptographic `commitment` allows someone to "commit" to a value. They can then only share the `commitment` without revealing the value. They can then choose to reveal the value.
+
+The holder of the link secret can also `blind` the `commitment`. The same `commitment`s will not have any relation to one another once `blinded`.
+
+why use link secrets?:
+- only the holder knows the secret. verifiers are sure that the individual presenting the credential is legit
+- link secret is same across all credentials of holder. can combine several credentials into single proof.
+
+because of `blinding`, it is much better for privacy than using DIDs. *Using a DID for the holder or subject of a credential is a bit like giving every verifier the same super-cookie that they can use to track everything you do.*
