@@ -1,5 +1,3 @@
-- [have not read yet](https://www.lfph.io/wp-content/uploads/2021/02/Verifiable-Credentials-Flavors-Explained.pdf)
-
 # [Notes from the Evernym blog on BBS+](https://www.evernym.com/blog/bbs-verifiable-credentials/)
 
 Evernym developed [anoncreds](https://github.com/hyperledger/ursa/blob/main/libursa/docs/anoncreds-design.md) based on Camenisch-Lysyanskaya signatures (CL sigs are based on RSA).
@@ -44,3 +42,5 @@ why use link secrets?:
 - link secret is same across all credentials of holder. can combine several credentials into single proof.
 
 because of `blinding`, it is much better for privacy than using DIDs. *Using a DID for the holder or subject of a credential is a bit like giving every verifier the same super-cookie that they can use to track everything you do.*
+
+# [Notes on Verifiable-Credentials-Flavors-Explained](https://www.lfph.io/wp-content/uploads/2021/02/Verifiable-Credentials-Flavors-Explained.pdf)

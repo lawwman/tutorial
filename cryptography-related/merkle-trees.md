@@ -38,4 +38,4 @@ What is the preimage of a hashed value? A set of values that when hashed, produc
   - BTC's merkle implementation pads odd numbered inputs with duplicates of the last input. Even for intermediate hashes, this behaviour is consistent till root hash is obtained. 2nd preimage can be obtained by simply duplicating inputs when they happen to be odd numbered.
 
 # Good read on Merkle proofs and BTC
-- [discussion on efficiency of perkle proofs](https://bitcoin.stackexchange.com/questions/69018/merkle-root-and-merkle-proofs)
+- [discussion on efficiency of merkle proofs](https://bitcoin.stackexchange.com/questions/69018/merkle-root-and-merkle-proofs)
