@@ -11,6 +11,9 @@ Origin = `protocol` + `domain` + `port`. E.g:
   - same protocol (http)
   - same domain (example.com)
   - path does not matter
+- `http://api.example.com` is NOT the same origin as `http://example.com`
+  - https://stackoverflow.com/questions/26724137/do-i-need-to-enable-cors-when-my-api-is-on-a-subdomain-of-my-main-website
+  - subdomains are considered another origin
 
 Let's say that I’m a browser. I load a website from a URL. Whatever server / origin / source that it comes from, let's call that `origin A`.
 
@@ -19,20 +22,8 @@ The website from `origin A` also needs resources from another server, `origin B`
 `Same Origin Policy` will control such `cross origin` interactions.
 
 # why is cross origin access bad?
+- https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#the-many-dangers-of-cross-origin-requests
 
-## Scenario: Sending a malicious request
-We landed onto a malicious site from `origin A`. It has a malicious javascript. Sayyy it sends a request to our bank with the intent to delete our bank account. For the evil `<script>` to work, as part of the request our browser would also have to send our credentials (cookies) from the bank’s website. That’s how the bank’s servers would identify us and know which account to delete. Game over here.
-
-> from https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#the-many-dangers-of-cross-origin-requests
-
-## Scenario: maliciously loading a resource
-I want to detect folks that work for Awesome Corp, whose internal website is on intra.awesome-corp.com. On my website, `dangerous.com` I got an `<img src="https://intra.awesome-corp.com/avatars/john-doe.png">`.
-
-For users that do not have a session active with intra.awesome-corp.com, the avatar won’t render – it will produce an error. But, if you’re logged in the intranet of Awesome Corp., once you open my dangerous.com website I’ll know that you have access.
-
-That means that I will be able to derive some information about you. While it’s definitely harder for me to craft an attack, the knowledge that you have access to Awesome Corp. is still a potential attack vector.
-
-> from https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#the-many-dangers-of-cross-origin-requests
 
 
 # What does Same Origin Policy control?
@@ -52,6 +43,8 @@ Generally, most http `requests`/`responses` to other origins are not allowed.
 - [simple requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests) are NOT blocked. the browser allows those to be sent.
 - requests that are not deemed `simple requests` would trigger a CORS preflight, and usually blocked unless headers are configured correctly.
 - responses are all blocked by default. `cross origin reads` are blocked.
+
+> The motivation of the preflight is to make sure that the server is CORS aware (there might be legacy servers that do not implement CORS)
 
 ## Practical example
 > heavily referenced from https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#enter-cors

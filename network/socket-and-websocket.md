@@ -28,11 +28,13 @@ websocket:
 - connection stays open until either client or server terminates
 - stateful
 
+## When should we use it?
+- when data is continuously transmitted between client and server, maintaining the same connection saves a lot of time -> improved performance.
+- when we have an application that requires the server to be able to push to client. can only achieve with birectional communication.
+
 ## useful for
 - Real-time web application
 - Gaming application
 - Chat application
-
-when data is continuously transmitted between client and server, maintaining the same connection saves a lot of time -> improved performance.
 
 - [more indepth read](https://sookocheff.com/post/networking/how-do-websockets-work/)
