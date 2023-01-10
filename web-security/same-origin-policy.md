@@ -24,8 +24,6 @@ The website from `origin A` also needs resources from another server, `origin B`
 # why is cross origin access bad?
 - https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#the-many-dangers-of-cross-origin-requests
 
-
-
 # What does Same Origin Policy control?
 **Basically, when a browser implements SOP, all interactions between 2 different origins are NOT allowed. But that is not feasible for the web, so here are some exceptions to the rule.**
 

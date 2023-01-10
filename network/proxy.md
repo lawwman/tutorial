@@ -2,12 +2,12 @@ the purpose of forward and reverse proxies is to act on behalf of another machin
 
 # forward proxy
 
-example of forward proxy in a typical infra:
+example of forward proxy in a typical infra: \
 ![forward proxy infra](./screenshots/ss1.png)
 
 all requests in internal network go through forward proxy (req can be denied).
 
-From the point of view of the file transfer server, it is the proxy server that issued the request, not the client. So when the server responds, it addresses its response to the proxy.
+From the POV of the file transfer server, it is the proxy server that issued the request, not the client. So when the server responds, it addresses its response to the proxy.
 
 the proxy servers keeps track of requests, responses, sources and destinations. different clients can send out requests to different servers through the forward proxy and the proxy will intermediate for all of them.
 

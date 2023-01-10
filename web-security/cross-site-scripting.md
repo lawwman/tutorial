@@ -1,24 +1,3 @@
-# Browser Enforced Policies
-
-# [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-
-Limit the origins we can trust and allow to execute within the context of the website.
-
-Let’s say I’m a browser loading a website from `origin A`. CSP is not enabled by default. `Origin A` has to return X-Content-Security-Policy header with a list of trusted origins.
-
-In addition to restricting origins, `origin A` can specify which protocols are allowed (e.g. only HTTPS).
-
-## Other Applications of CSP
-- https://content-security-policy.com/nonce/
-- https://www.netsparker.com/blog/web-security/content-security-policy/
-
-
-## SOP vs CSP in a nutshell...
-From the browser pov:
-- SOP: Who trusts me? (Which origin will let me call them)
-- CSP: Who do I trust? (Which origin am I allowed to call)
-
-
 # XSS
 
 ## For what it's about:
